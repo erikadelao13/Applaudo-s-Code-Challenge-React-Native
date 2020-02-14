@@ -5,13 +5,15 @@ import { resize } from '../../utils/styles'
 export default StyleSheet.create({
     backgroundContainer: {
         backgroundColor: colors.backgroundColorApp,
-        flex:1,
+        flex: 1,
     },
     colorScroll: {
         backgroundColor: colors.backgroundColorApp,
     },
     borderBottomTabColor: {
-        backgroundColor: colors.lightPurple,
+        backgroundColor: colors.lightestPurple,
+        width: resize(50),
+        borderRadius: resize(12),
     },
     activeTextStyleTab: {
         fontFamily: fonts.montserratSemiBold,

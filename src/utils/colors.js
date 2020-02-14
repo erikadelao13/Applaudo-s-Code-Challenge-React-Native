@@ -4,6 +4,8 @@ const colors = {
   darkTextLight: '#494359',
   lightPurple: '#8055E3',
   lightGray: '#C2BDCA',
+  lightestPurple: '#A37CFC',
+  darkGray: '#9E9AA6',
   // modalgreyText: '#a09590',
   // modalgreybutton: '#c3c3c3',
   // white: '#FFFFFF',

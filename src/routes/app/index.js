@@ -5,7 +5,8 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import { resize } from '../../utils/styles';
 import React from 'react';
 // screens
-import Home from '../../screens/app/Home'
+import Home from '../../screens/app/Home';
+import Detail from '../../screens/app/Detail'
 // const drawerStack = createDrawerNavigator(
 //   {
 //     Home: {
@@ -30,6 +31,9 @@ const appStackNavigator = createStackNavigator(
     Home: {
       screen: Home,
     },
+    Detail: {
+      screen: Detail,
+    }
   },
   {
     initialRouteName: 'Home',

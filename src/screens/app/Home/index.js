@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { View, Text, StatusBar, FlatList } from 'react-native';
 import { Content, Container } from 'native-base';
-import { getCategories } from '../../../api/home'
+import { getGenres } from '../../../api/home'
 import { connect } from 'react-redux';
 //customs
 import styles from './styles';
@@ -17,10 +17,10 @@ class Home extends Component {
   }
   componentDidMount = async () => {
     try {
-      const getCategoryList = await getCategories();
-      console.log(getCategoryList, 'getCategoryList')
+      const getGenresList = await getGenres();
+      console.log(getGenresList, 'getGenresList')
       this.setState({
-        categories: getCategoryList.data.data
+        categories: getGenresList.data.data
       })
     } catch (err) {
       console.log(err)
@@ -39,15 +39,12 @@ class Home extends Component {
                   data={this.state.categories}
                   showsVerticalScrollIndicator={false}
                   renderItem={({ item, index }) => (
-                    <View>
-                      <Text style={styles.categoryName}>{item.attributes.title}</Text>
-                      <Category
-                        categoryName={item.attributes.title}
-                        type={'anime'}
-                      />
-                    </View>
-                  )
-                  }
+                    <Category
+                      showCategoryName={<Text style={styles.categoryName}>{item.attributes.name}</Text>}
+                      categoryName={item.attributes.slug}
+                      type={'anime'}
+                    />
+                  )}
                 />
               }
               contentTab2={
@@ -55,13 +52,11 @@ class Home extends Component {
                   data={this.state.categories}
                   showsVerticalScrollIndicator={false}
                   renderItem={({ item, index }) => (
-                    <View>
-                      <Text style={styles.categoryName}>{item.attributes.title}</Text>
-                      <Category
-                        categoryName={item.attributes.title}
-                        type={'manga'}
-                      />
-                    </View>
+                    <Category
+                      showCategoryName={<Text style={styles.categoryName}>{item.attributes.name}</Text>}
+                      categoryName={item.attributes.slug}
+                      type={'manga'}
+                    />
                   )
                   }
                 />

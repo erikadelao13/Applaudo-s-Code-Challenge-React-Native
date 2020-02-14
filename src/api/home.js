@@ -12,6 +12,12 @@ export const getCategories = async () => {
         url: `/categories/`,
     })
 }
+export const getGenres = async () => {
+    return await dispatchRequest({
+        method: 'get',
+        url: `/genres/`,
+    })
+}
 export const getDataByCategory = async (type, categoryName) => {
     return await dispatchRequest({
         method: 'get',
