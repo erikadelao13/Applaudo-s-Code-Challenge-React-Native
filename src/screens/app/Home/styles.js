@@ -10,9 +10,9 @@ export default StyleSheet.create({
   },
   backgroundContent: {
     backgroundColor: colors.backgroundColorApp,
-    flex:1,
+    flex: 1,
   },
-  backgroundContainer:{
+  backgroundContainer: {
     paddingHorizontal: resize(12),
     backgroundColor: colors.backgroundColorApp,
   },
@@ -24,5 +24,10 @@ export default StyleSheet.create({
     paddingBottom: resize(30),
     paddingTop: resize(10),
     backgroundColor: colors.backgroundColorApp
+  },
+  loader: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });

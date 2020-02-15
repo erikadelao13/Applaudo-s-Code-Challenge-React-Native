@@ -18,8 +18,8 @@ const instance = axios.create({
 export const dispatchRequest = async (request) => {
   const _state = await state();
 
-  // instance.defaults.headers.common['Content-Type'] = 'application/vnd.api+json';
-  // instance.defaults.headers.common['Accept'] = 'application/vnd.api+json';
+  instance.defaults.headers.common['Content-Type'] = 'application/vnd.api+json';
+  instance.defaults.headers.common['Accept'] = 'application/vnd.api+json';
   // instance.defaults.headers.common['Authorization'] = _state.auth.token;
 
   try {

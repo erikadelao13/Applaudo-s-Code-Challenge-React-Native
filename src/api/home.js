@@ -18,12 +18,24 @@ export const getGenres = async () => {
         url: `/genres/`,
     })
 }
+export const showGenresByPage = async url => {
+    return await dispatchRequest({
+      method: 'get',
+      url,
+    });
+};
 export const getDataByCategory = async (type, categoryName) => {
     return await dispatchRequest({
         method: 'get',
         url: `/${type}?filter[genres]=${categoryName}`,
     })
 }
+export const showDataByCategoryPage = async url => {
+    return await dispatchRequest({
+      method: 'get',
+      url,
+    });
+};
 // export const getQuestion = async (data = {}) =>
 //     dispatchRequest({
 //         method: "post",

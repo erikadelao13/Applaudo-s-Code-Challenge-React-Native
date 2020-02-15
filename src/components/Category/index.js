@@ -1,16 +1,16 @@
 
 import React, { Component } from 'react';
 import { View, FlatList, TouchableHighlightBase, Text } from 'react-native';
-import { getDataByCategory } from '../../api/home'
+import { getDataByCategory, showDataByCategoryPage } from '../../api/home'
 import { connect } from 'react-redux';
 import { withNavigationFocus } from 'react-navigation';
 //customs
 import styles from './styles';
-import Card from '../../components/Card'
+import Card from '../../components/Card';
 class Category extends Component {
   state = {
     loading: false,
-    next_page_url: null,
+    urlNextPage: null,
     categoryList: [],
     showCategoryName: false,
   }
@@ -22,6 +22,7 @@ class Category extends Component {
         this.setState({
           categoryList: getDatabyCategoryList.data.data,
           showCategoryName: true,
+          urlNextPage: getDatabyCategoryList.data.links.next,
         })
       } else {
         this.setState({
@@ -32,10 +33,25 @@ class Category extends Component {
       console.log(err)
     }
   }
+  loadMoreData = async () => {
+    try {
+      let { urlNextPage, categoryList } = this.state;
+      if (urlNextPage) {
+        let interArray = [...categoryList];
+        let response = await showDataByCategoryPage(urlNextPage);
+        let nextArray = [...interArray, ...response.data.data];
+        this.setState({
+          categoryList: nextArray,
+          urlNextPage: response.data.links.next,
+        });
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
   seeDetail = async index => {
     try {
       let { categoryList } = this.state;
-      console.log(categoryList[index],'categoryListsdklfjsdlkf')
       let cardId = categoryList[index].id;
       categoryList.id = cardId;
       this.setState({ categoryList }, () => {
@@ -45,6 +61,13 @@ class Category extends Component {
       });
     } catch (err) {
       console.log(err);
+    }
+  }
+  imageExists = image => {
+    if (image && Reflect.has(image, 'original')) {
+      return image.original;
+    } else {
+      return null;
     }
   }
   render() {
@@ -61,16 +84,19 @@ class Category extends Component {
             data={categoryList}
             horizontal
             showsHorizontalScrollIndicator={false}
+            onEndReached={this.loadMoreData}
             renderItem={({ item, index }) => (
+              item !== null ?
                 <Card
                   onPressCard={() => this.seeDetail(index)}
                   averageRating={item.attributes.popularityRank !== null ? item.attributes.popularityRank : '--'}
-                  picture={item.attributes.posterImage.original}
+                  picture={this.imageExists(item.attributes.posterImage)}
                   name={item.attributes.canonicalTitle}
                   numberOfEpisodes={type === 'manga' ? item.attributes.chapterCount : item.attributes.episodeCount}
                   minutesPerEpisode={type === 'manga' ? item.attributes.volumeCount : item.attributes.episodeLength}
                   mangaTypeActive={type === 'manga' ? true : false}
                 />
+                : null
             )}
           />
         </View>) : null
