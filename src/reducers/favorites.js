@@ -1,17 +1,14 @@
-import { SET_USER } from '../actions/user';
-import { DESTROY_SESSION } from '../actions/auth';
+import { SET_TO_FAVORITE } from '../actions/favorites';
 
 const INITIAL_STATE = {};
 
 function user(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case SET_USER:
+    case SET_TO_FAVORITE:
       return {
         ...state,
         ...action.payload
       }
-    case DESTROY_SESSION:
-      return INITIAL_STATE;
     default:
       return state;
   }

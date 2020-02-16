@@ -4,7 +4,8 @@ import colors from '../../utils/colors';
 import fonts from '../../utils/fonts';
 export default StyleSheet.create({
     loader: {
-        marginTop: 10,
+        flex: 1,
         alignItems: 'center',
-    }
+        justifyContent: 'center',
+    },
 });

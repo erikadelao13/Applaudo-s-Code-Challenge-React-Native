@@ -20,3 +20,8 @@
 - Added searcher to anime section
 - Added searcher to manga section
 - Added component for search result
+
+## [ADD] 2020-02-16 2:05PM
+- Added skeleton component
+- Added spinner loading
+- Added optimizitaion for Flatlist

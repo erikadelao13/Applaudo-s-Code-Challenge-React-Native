@@ -3,7 +3,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
 const storage = AsyncStorage;
 //reducers
-import authReducer from './src/reducers/auth';
+import favoritesReducer from './src/reducers/favorites';
 // import userReducer from './src/reducers/user';
 //persist config
 const rootPersistConfig = {
@@ -11,8 +11,8 @@ const rootPersistConfig = {
   storage,
   blacklist: []
 }
-const authPersistConfig = {
-  key: 'auth',
+const favoritesPersistConfig = {
+  key: 'favorites',
   storage,
   blacklist: [],
 }
@@ -24,7 +24,7 @@ const authPersistConfig = {
 
 //combine reducers
 const rootReducer = combineReducers({
-  auth: persistReducer(authPersistConfig, authReducer),
+  favorites: persistReducer(favoritesPersistConfig, favoritesReducer),
   // user: persistReducer(userPersistConfig, userReducer),
 });
 

@@ -11,8 +11,4 @@ class Splash extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  authorize: state.auth.authorize,
-});
-
-export default connect(mapStateToProps)(Splash);
+export default (Splash);

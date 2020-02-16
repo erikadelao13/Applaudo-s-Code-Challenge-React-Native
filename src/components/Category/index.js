@@ -9,7 +9,7 @@ import styles from './styles';
 import Card from '../../components/Card';
 class Category extends Component {
   state = {
-    loading: false,
+    isLoading: false,
     urlNextPage: null,
     categoryList: [],
     showCategoryName: false,
@@ -19,13 +19,10 @@ class Category extends Component {
     this.getCategoryList();
   };
 
-  // componentDidUpdate = async (prevProps) => {
-  //   if (prevProps.value !== this.props.value) {
-  //     this.searchResults();
-  //   }
-  // };
-
   getCategoryList = async () => {
+    this.setState({
+      isLoading: true
+    });
     try {
       const getDatabyCategoryList = await getDataByCategory(this.props.type, this.props.categoryName);
       console.log(getDatabyCategoryList, 'getDatabyCategoryList')
@@ -40,8 +37,14 @@ class Category extends Component {
           showCategoryName: false,
         })
       }
+      this.setState({
+        isLoading: false
+      });
     } catch (err) {
       console.log(err)
+      this.setState({
+        isLoading: false
+      });
     }
   };
 
@@ -61,25 +64,6 @@ class Category extends Component {
       console.log(err)
     }
   };
-
-  searchResults = async () => {
-    let { categoryList, urlNextPage } = this.state;
-    try {
-      if (this.props.value !== '') {
-        let searchByText = await searcher(this.props.indexTab === 0 ? 'anime' : 'manga', this.props.value)
-        console.log(searchByText, 'searchByText')
-        this.setState({
-          categoryList: searchByText.data.data
-        })
-        console.log(categoryList, 'categories search')
-      } else {
-        this.getCategoryList();
-      }
-    } catch (err) {
-      console.log(err)
-    }
-  };
-
 
   seeDetail = async index => {
     try {
@@ -116,6 +100,8 @@ class Category extends Component {
         <FlatList
           data={categoryList}
           horizontal
+          onEndReachedThreshold={0.8}
+          initialNumToRender={5}
           showsHorizontalScrollIndicator={false}
           onEndReached={this.loadMoreData}
           renderItem={({ item, index }) => (

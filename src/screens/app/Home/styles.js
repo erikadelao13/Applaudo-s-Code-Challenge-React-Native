@@ -25,9 +25,4 @@ export default StyleSheet.create({
     paddingTop: resize(10),
     backgroundColor: colors.backgroundColorApp
   },
-  loader: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
 });

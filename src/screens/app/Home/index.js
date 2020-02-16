@@ -10,6 +10,7 @@ import Category from '../../../components/Category';
 import TopTabBar from '../../../components/HeaderTabs';
 import Header from '../../../components/Header';
 import SearchResult from '../../../components/SearchResult';
+import Loading from '../../../components/LoadingSpinner';
 class Home extends Component {
   state = {
     loading: false,
@@ -29,15 +30,22 @@ class Home extends Component {
   };
 
   getCategories = async () => {
+    this.setState({
+      isLoading: true
+    });
     try {
       const getGenresList = await getGenres();
       console.log(getGenresList, 'getGenresList')
       this.setState({
         categories: getGenresList.data.data,
         urlNextPage: getGenresList.data.links.next,
+        isLoading: false,
       })
     } catch (err) {
       console.log(err)
+      this.setState({
+        isLoading: false
+      });
     }
   };
 
@@ -59,7 +67,6 @@ class Home extends Component {
   };
 
   onChangeInputValue = async (key, value) => {
-    let { indexTab, categories } = this.state;
     let { state } = this;
     state[key].value = value;
     this.setState({ ...state });
@@ -67,7 +74,6 @@ class Home extends Component {
 
   render() {
     let { isLoading, indexTab, querySearch } = this.state;
-    console.log(querySearch.value === '' ? 'funca' : 'no funca')
     return (
       <View style={styles.container}>
         <StatusBar translucent backgroundColor="transparent" />
@@ -94,33 +100,43 @@ class Home extends Component {
               indexTab={indexTab}
               contentTab1={
                 querySearch.value === '' ?
-                  (<FlatList
-                    data={this.state.categories}
-                    showsVerticalScrollIndicator={false}
-                    onEndReached={this.loadMoreData}
-                    renderItem={({ item, index }) => (
-                      item !== null ?
-                        <Category
-                          value={querySearch.value}
-                          indexTab={indexTab}
-                          showCategoryName={<Text style={styles.categoryName}>{item.attributes.name}</Text>}
-                          categoryName={item.attributes.slug}
-                          type={'anime'}
-                        />
-                        : null
-                    )}
-                  />)
+                  (
+                    !isLoading ?
+                      <FlatList
+                        data={this.state.categories}
+                        showsVerticalScrollIndicator={false}
+                        onEndReachedThreshold={0.8}
+                        initialNumToRender={5}
+                        onEndReached={this.loadMoreData}
+                        renderItem={({ item, index }) => (
+                          item !== null ?
+                            <Category
+                              value={querySearch.value}
+                              indexTab={indexTab}
+                              showCategoryName={<Text style={styles.categoryName}>{item.attributes.name}</Text>}
+                              categoryName={item.attributes.slug}
+                              type={'anime'}
+                            />
+                            : null
+                        )}
+                      />
+                      :
+                      <Loading color={'#8055E3'} />
+                  )
                   :
                   (<SearchResult
                     value={querySearch.value}
                     indexTab={indexTab}
                     type={'anime'}
                   />)
+
               }
               contentTab2={
                 querySearch.value === '' ?
                   (<FlatList
                     data={this.state.categories}
+                    onEndReachedThreshold={0.8}
+                    initialNumToRender={5}
                     showsVerticalScrollIndicator={false}
                     onEndReached={this.loadMoreData}
                     renderItem={({ item, index }) => (

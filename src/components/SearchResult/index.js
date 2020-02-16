@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { Container, Content } from 'native-base';
 import { searcher, searcherByPage } from '../../api/home';
 import styles from './styles';
+import { withNavigationFocus } from 'react-navigation';
 //customs
 import Card from '../Card'
 class SearchResult extends Component {
@@ -27,15 +28,13 @@ class SearchResult extends Component {
         try {
             if (this.props.value !== '') {
                 let searchByText = await searcher(this.props.indexTab === 0 ? 'anime' : 'manga', this.props.value)
-                console.log(searchByText, 'searchByText')
                 this.setState({
                     searchList: searchByText.data.data,
                     urlNextPage: searchByText.data.links.next,
                 })
-                console.log(searchList, 'categories search')
             }
         } catch (err) {
-            console.log(err)
+            console.log(err)    
         }
     };
 
@@ -107,4 +106,4 @@ class SearchResult extends Component {
         );
     }
 }
-export default SearchResult
+export default withNavigationFocus(SearchResult)
