@@ -15,3 +15,8 @@
 - Added pagination to anime section
 - Added pagination to manga section
 - Created Header Component with searcher
+
+## [ADD] 2020-02-16 1:15AM
+- Added searcher to anime section
+- Added searcher to manga section
+- Added component for search result

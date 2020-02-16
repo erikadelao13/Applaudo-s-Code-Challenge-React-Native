@@ -5,7 +5,7 @@ import { resize } from '../../utils/styles'
 export default StyleSheet.create({
     backgroundContainer: {
         backgroundColor: colors.backgroundColorApp,
-        flex:1,
+        flex: 1,
     },
     colorScroll: {
         backgroundColor: colors.backgroundColorApp,
@@ -27,4 +27,8 @@ export default StyleSheet.create({
         fontFamily: fonts.montserratMedium,
         color: colors.lightGray,
     },
+    containerTab: {
+        flex: 1,
+        backgroundColor: colors.backgroundColorApp
+    }
 });

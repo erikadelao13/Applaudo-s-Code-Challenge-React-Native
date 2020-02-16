@@ -7,14 +7,11 @@ function tabBar(props) {
         <Container style={styles.backgroundContainer}>
             <Tabs
                 initialPage={0}
-                style={{ borderWidth: 0}}
-                // onChangeTab={info => props.onChangeTab(info)}
+                style={{ borderWidth: 0 }}
+                onChangeTab={info => props.onChangeTab(info)}
                 tabBarUnderlineStyle={styles.borderBottomTabColor}
-                // renderTabBar={() => (
-                //     <ScrollableTab style={{ borderWidth: 0}} tabsContainerStyle={styles.colorScroll} />
-                // )}
                 locked
-                >
+            >
                 <Tab
                     textStyle={styles.textStyleTab}
                     activeTextStyle={styles.activeTextStyleTab}
@@ -22,7 +19,9 @@ function tabBar(props) {
                     tabStyle={styles.TabColorBackground}
                     heading={'Anime'}
                 >
-                    {props.contentTab1}
+                    <Container style={styles.containerTab}>
+                        {props.contentTab1}
+                    </Container>
                 </Tab>
                 <Tab
                     textStyle={styles.textStyleTab}
@@ -30,7 +29,9 @@ function tabBar(props) {
                     activeTabStyle={styles.activeTabColorBackground}
                     tabStyle={styles.TabColorBackground}
                     heading={'Manga'}>
-                    {props.contentTab2}
+                    <Container style={styles.containerTab}>
+                        {props.contentTab2}
+                    </Container>
                 </Tab>
             </Tabs>
         </Container>
