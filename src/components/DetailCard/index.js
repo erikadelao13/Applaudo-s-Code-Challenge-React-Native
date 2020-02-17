@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Thumbnail, Content, Container } from 'native-base';
+import { View, Text, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import { Thumbnail, Content, Container, Icon } from 'native-base';
 import styles from './styles';
-import FooterScrollableTab from '../FooterScrollableTab';
-import GeneralDetails from '../GeneralDetails';
-import TechnicalDetails from '../TechnicalDetails';
 const detailComponent = (props) => {
     return (
         <View style={styles.container}>
-            <View style={styles.containerImage}>
-                <Thumbnail style={styles.thumbnailStyle} square large source={{ uri: props.picture }} />
-            </View>
+            {props.onPLayVideo === false ?
+                <TouchableOpacity onPress={props.onPress}>
+                    <View style={styles.containerImage}>
+                        <Thumbnail style={styles.thumbnailStyle} square large source={{ uri: props.picture }} />
+                        {!props.mangaTypeActive &&
+                            (<View style={styles.playIconContainer}>
+                                <Icon style={styles.playIcon} type="FontAwesome" name="play" />
+                            </View>)
+                        }
+                    </View>
+                </TouchableOpacity>
+                :
+                <View style={styles.containerVideo}>
+                    {props.youtubeVideo}
+                </View>
+            }
             <View style={styles.footerStyle}>
                 <View style={styles.footerSectionOne}>
                     <View style={styles.sectionOne}>
@@ -33,21 +43,6 @@ const detailComponent = (props) => {
                         </View>
                     </View>
                 </View>
-                {/* <FooterScrollableTab
-                    contentTab1={
-                        <GeneralDetails
-                            synopsis={props.synopsis}
-                        />}
-                    contentTab2={
-                        <TechnicalDetails
-                            ageRating={props.ageRating}
-                            ageRatingGuide={props.ageRatingGuide}
-                            showType={props.showType}
-                            startDate={props.startDate}
-                            endDate={props.endDate}
-                            status={props.status}
-                        />}
-                /> */}
             </View>
         </View>
     );

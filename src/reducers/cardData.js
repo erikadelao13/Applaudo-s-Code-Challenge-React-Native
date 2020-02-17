@@ -1,10 +1,10 @@
-import { SET_TO_FAVORITE } from '../actions/favorites';
+import { SET_DATA_CARD } from '../actions/cardData';
 
 const INITIAL_STATE = {};
 
 function user(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case SET_TO_FAVORITE:
+    case SET_DATA_CARD:
       return {
         ...state,
         ...action.payload

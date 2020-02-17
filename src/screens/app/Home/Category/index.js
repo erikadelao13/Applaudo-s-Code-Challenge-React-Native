@@ -1,15 +1,17 @@
 
 import React, { Component } from 'react';
 import { View, FlatList, TouchableHighlightBase, Text } from 'react-native';
-import { getDataByCategory, showDataByCategoryPage, searcher } from '../../api/home'
+import { getDataByCategory, showDataByCategoryPage, searcher } from '../../../../api/home'
 import { connect } from 'react-redux';
 import { withNavigationFocus } from 'react-navigation';
 //customs
 import styles from './styles';
-import Card from '../../components/Card';
+import Card from '../../../../components/Card';
+import Loading from '../../../../components/LoadingSpinner';
 class Category extends Component {
   state = {
     isLoading: false,
+    isLoadingNext: false,
     urlNextPage: null,
     categoryList: [],
     showCategoryName: false,
@@ -49,6 +51,9 @@ class Category extends Component {
   };
 
   loadMoreData = async () => {
+    this.setState({
+      isLoadingNext: true
+    })
     try {
       let { urlNextPage, categoryList } = this.state;
       if (urlNextPage) {
@@ -60,8 +65,14 @@ class Category extends Component {
           urlNextPage: response.data.links.next,
         });
       }
+      this.setState({
+        isLoadingNext: false,
+      })
     } catch (err) {
       console.log(err)
+      this.setState({
+        isLoadingNext: false
+      })
     }
   };
 
@@ -89,7 +100,7 @@ class Category extends Component {
   };
 
   render() {
-    let { showCategoryName, categoryList } = this.state;
+    let { showCategoryName, categoryList, isLoadingNext } = this.state;
     let { categoryName, type } = this.props;
     return (
       <View style={styles.container}>
@@ -105,9 +116,17 @@ class Category extends Component {
           maxToRenderPerBatch={5}
           showsHorizontalScrollIndicator={false}
           onEndReached={this.loadMoreData}
+          ListFooterComponent={
+            <>
+              {isLoadingNext && (
+                <Loading color={'#8055E3'} />
+              )}
+            </>
+          }
           renderItem={({ item, index }) => (
             item !== null ?
               <Card
+                cardForSearch={false}
                 onPressCard={() => this.seeDetail(index)}
                 averageRating={item.attributes.popularityRank !== null ? item.attributes.popularityRank : '--'}
                 picture={this.imageExists(item.attributes.posterImage)}

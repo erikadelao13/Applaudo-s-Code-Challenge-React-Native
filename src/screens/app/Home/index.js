@@ -6,10 +6,11 @@ import { getGenres, showGenresByPage, searcher } from '../../../api/home'
 import { connect } from 'react-redux';
 //customs
 import styles from './styles';
-import Category from '../../../components/Category';
+import colors from '../../../utils/colors';
+import Category from './Category';
 import TopTabBar from '../../../components/HeaderTabs';
 import Header from '../../../components/Header';
-import SearchResult from '../../../components/SearchResult';
+import SearchResult from './SearchResult';
 import Loading from '../../../components/LoadingSpinner';
 class Home extends Component {
   state = {
@@ -28,7 +29,7 @@ class Home extends Component {
     this.getCategories();
   };
 
-  getCategories = async () => {
+  getCategories = async (isRefresh = false) => {
     this.setState({
       isLoading: true
     });
@@ -61,9 +62,11 @@ class Home extends Component {
         this.setState({
           categories: nextArray,
           urlNextPage: response.data.links.next,
-          isLoadingNext: false,
         });
       }
+      this.setState({
+        isLoadingNext: false,
+      })
     } catch (err) {
       console.log(err);
       this.setState({
@@ -75,6 +78,7 @@ class Home extends Component {
   onChangeInputValue = async (key, value) => {
     let { state } = this;
     state[key].value = value;
+    state[key].value = state[key].value.replace(/\s{2,}/g, ' ').trimLeft();
     this.setState({ ...state });
   };
 
@@ -82,28 +86,16 @@ class Home extends Component {
     let { isLoading, isLoadingNext, indexTab, querySearch, categories } = this.state;
     return (
       <View style={styles.container}>
-        <StatusBar translucent backgroundColor="transparent" />
-        {indexTab === 0 && (
-          <Header
-            headerWithSearch={true}
-            stateInput="querySearch"
-            textValue={querySearch.value}
-            onChangeValue={this.onChangeInputValue}
-          />
-        )}
-        {indexTab === 1 && (
-          <Header
-            headerWithSearch={true}
-            stateInput="querySearch"
-            textValue={querySearch.value}
-            onChangeValue={this.onChangeInputValue}
-          />
-        )}
+        <StatusBar translucent backgroundColor='transparent' />
+        <Header
+          headerWithSearch={true}
+          stateInput="querySearch"
+          textValue={querySearch.value}
+          onChangeValue={this.onChangeInputValue}
+        />
         <Container style={styles.backgroundContainer}>
           <Content showsVerticalScrollIndicator={false} contentContainerStyle={styles.backgroundContent}>
             <TopTabBar
-              onChangeTab={data => this.setState({ indexTab: data.i })}
-              indexTab={indexTab}
               contentTab1={
                 querySearch.value === '' ?
                   (
@@ -111,6 +103,7 @@ class Home extends Component {
                       <FlatList
                         keyExtractor={i => i.id}
                         data={categories}
+                        // onRefresh={() => this.getCategories()}
                         onEndReached={this.loadMoreData}
                         onEndReachedThreshold={0.5}
                         // initialNumToRender={5}
@@ -157,6 +150,13 @@ class Home extends Component {
                       // initialNumToRender={5}
                       maxToRenderPerBatch={3}
                       showsVerticalScrollIndicator={false}
+                      ListFooterComponent={
+                        <>
+                          {isLoadingNext && (
+                            <Loading color={'#8055E3'} />
+                          )}
+                        </>
+                      }
                       renderItem={({ item, index }) => (
                         <Category
                           value={querySearch.value}

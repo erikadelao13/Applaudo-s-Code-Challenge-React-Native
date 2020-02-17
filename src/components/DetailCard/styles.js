@@ -22,9 +22,14 @@ export default StyleSheet.create({
         shadowOpacity: 0.75,
         shadowRadius: 2,
         elevation: 2,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    containerVideo: {
+        width: '100%',
+        height: resize(350, 'h'),
     },
     thumbnailStyle: {
-        borderRadius: resize(12),
         width: '100%',
         height: '100%',
     },
@@ -134,5 +139,17 @@ export default StyleSheet.create({
         fontSize: resize(14),
         color: colors.darkTextLight,
         textAlign: 'justify',
+    },
+    playIconContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        backgroundColor: colors.lightPurple,
+        borderRadius: resize(90) / 2,
+        height: resize(90),
+        width: resize(90),
+    },
+    playIcon: {
+        color: colors.backgroundColorApp,
     }
 });

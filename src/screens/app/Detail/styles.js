@@ -10,9 +10,9 @@ export default StyleSheet.create({
   },
   backgroundContent: {
     backgroundColor: colors.backgroundColorApp,
-    flex:1,
+    flex: 1,
   },
-  backgroundContainer:{
+  backgroundContainer: {
     paddingHorizontal: resize(12),
     backgroundColor: colors.backgroundColorApp,
   },
@@ -23,5 +23,9 @@ export default StyleSheet.create({
     color: colors.titleCategoryColor,
     paddingTop: resize(15),
     paddingBottom: resize(20),
+  },
+  youtubeVideoStyle: {
+    width: '100%',
+    height: '100%'
   }
 });

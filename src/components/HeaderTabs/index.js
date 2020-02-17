@@ -8,7 +8,6 @@ function tabBar(props) {
             <Tabs
                 initialPage={0}
                 style={{ borderWidth: 0 }}
-                onChangeTab={info => props.onChangeTab(info)}
                 tabBarUnderlineStyle={styles.borderBottomTabColor}
                 locked
             >

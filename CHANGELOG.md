@@ -25,6 +25,7 @@
 - Added skeleton component
 - Added spinner loading
 - Added optimizitaion for Flatlist
+
 ## [FIX] 2020-02-16 7:50PM
 - Fixed component for Detail view
 
@@ -32,3 +33,9 @@
 - Added list of episodes
 - Added component for card of Episodes
 
+## [FIX] 2020-02-17 1:28PM
+- Fixed optimization of tabs
+
+## [ADD] 2020-02-17 1:28PM
+- Added youtube video on app
+- Added Loaders to FlatList

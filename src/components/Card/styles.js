@@ -1,15 +1,12 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { resize } from '../../utils/styles';
 import colors from '../../utils/colors';
 import fonts from '../../utils/fonts';
+const { width, height } = Dimensions.get('window');
 export default StyleSheet.create({
     container: {
         flex: 1,
         paddingRight: resize(25),
-    },
-    containerImage: {
-        width: '100%',
-        height: '100%',
     },
     nameStyle: {
         fontFamily: fonts.montserratMedium,
@@ -20,7 +17,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         width: '70%',
         justifyContent: 'space-between',
-        paddingTop:resize(5)
+        paddingTop: resize(5)
     },
     popularityLabel: {
         backgroundColor: colors.lightPurple,
@@ -45,7 +42,12 @@ export default StyleSheet.create({
     thumbnailStyle: {
         width: resize(180),
         height: resize(220),
-        borderRadius: resize(10)
+        borderRadius: resize(10),
+    },
+    thumbnailMin: {
+        width: width / 2.5,
+        height: resize(220),
+        borderRadius: resize(10),
     },
     footerStyle: {
         width: resize(175)
