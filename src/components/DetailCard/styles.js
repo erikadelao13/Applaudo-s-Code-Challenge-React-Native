@@ -6,7 +6,8 @@ export default StyleSheet.create({
     container: {
         // flex: 1,
         // width: '100%',
-        height: '100%',
+        flex: 1,
+        // height: '100%',
         minWidth: '100%',
         width: '100%',
         paddingTop: resize(12, 'h'),
@@ -14,7 +15,7 @@ export default StyleSheet.create({
     },
     containerImage: {
         width: '100%',
-        height: '50%',
+        height: resize(350, 'h'),
         borderRadius: resize(12),
         shadowColor: '#000',
         shadowOffset: { width: 0, height: resize(2) },
@@ -36,11 +37,12 @@ export default StyleSheet.create({
     },
     footerStyle: {
         width: '100%',
-        height: '50%',
+        // height: resize(350, 'h'),
+        // backgroundColor: 'green',
     },
     footerSectionOne: {
         width: '100%',
-        height: '37%',
+        height: resize(140, 'h'),
         flexDirection: 'row',
         paddingVertical: resize(20),
     },

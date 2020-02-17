@@ -13,10 +13,6 @@ class SearchResult extends Component {
         searchList: [],
     }
 
-    componentDidMount = async () => {
-        this.searchResults();
-    };
-
     componentDidUpdate = async (prevProps) => {
         if (prevProps.value !== this.props.value) {
             this.searchResults();
@@ -24,7 +20,6 @@ class SearchResult extends Component {
     };
 
     searchResults = async () => {
-        let { searchList, urlNextPage } = this.state;
         try {
             if (this.props.value !== '') {
                 let searchByText = await searcher(this.props.indexTab === 0 ? 'anime' : 'manga', this.props.value)
@@ -34,7 +29,7 @@ class SearchResult extends Component {
                 })
             }
         } catch (err) {
-            console.log(err)    
+            console.log(err)
         }
     };
 
@@ -86,6 +81,8 @@ class SearchResult extends Component {
                 <FlatList
                     data={searchList}
                     showsVerticalScrollIndicator={false}
+                    onEndReachedThreshold={0.5}
+                    maxToRenderPerBatch={3}
                     onEndReached={this.loadMoreData}
                     numColumns={2}
                     renderItem={({ item, index }) => (

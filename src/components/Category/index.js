@@ -100,8 +100,9 @@ class Category extends Component {
         <FlatList
           data={categoryList}
           horizontal
-          onEndReachedThreshold={0.8}
+          onEndReachedThreshold={0.5}
           initialNumToRender={5}
+          maxToRenderPerBatch={5}
           showsHorizontalScrollIndicator={false}
           onEndReached={this.loadMoreData}
           renderItem={({ item, index }) => (

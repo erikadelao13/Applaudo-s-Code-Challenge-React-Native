@@ -13,7 +13,6 @@ import SearchResult from '../../../components/SearchResult';
 import Loading from '../../../components/LoadingSpinner';
 class Home extends Component {
   state = {
-    loading: false,
     urlNextPage: null,
     isLoading: false,
     categories: [],
@@ -23,7 +22,7 @@ class Home extends Component {
       type: 'text',
       required: 'false'
     },
-    searchResults: null,
+    isLoadingNext: false,
   }
   componentDidMount = async () => {
     this.getCategories();
@@ -50,8 +49,11 @@ class Home extends Component {
   };
 
   loadMoreData = async () => {
+    this.setState({
+      isLoadingNext: true
+    })
     try {
-      let { urlNextPage, categories } = this.state;
+      let { urlNextPage, categories, isLoadingNext } = this.state;
       if (urlNextPage) {
         let interArray = [...categories];
         let response = await showGenresByPage(urlNextPage);
@@ -59,10 +61,14 @@ class Home extends Component {
         this.setState({
           categories: nextArray,
           urlNextPage: response.data.links.next,
+          isLoadingNext: false,
         });
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
+      this.setState({
+        isLoadingNext: false
+      });
     }
   };
 
@@ -73,7 +79,7 @@ class Home extends Component {
   };
 
   render() {
-    let { isLoading, indexTab, querySearch } = this.state;
+    let { isLoading, isLoadingNext, indexTab, querySearch, categories } = this.state;
     return (
       <View style={styles.container}>
         <StatusBar translucent backgroundColor="transparent" />
@@ -103,11 +109,20 @@ class Home extends Component {
                   (
                     !isLoading ?
                       <FlatList
-                        data={this.state.categories}
-                        showsVerticalScrollIndicator={false}
-                        onEndReachedThreshold={0.8}
-                        initialNumToRender={5}
+                        keyExtractor={i => i.id}
+                        data={categories}
                         onEndReached={this.loadMoreData}
+                        onEndReachedThreshold={0.5}
+                        // initialNumToRender={5}
+                        maxToRenderPerBatch={3}
+                        showsVerticalScrollIndicator={false}
+                        ListFooterComponent={
+                          <>
+                            {isLoadingNext && (
+                              <Loading color={'#8055E3'} />
+                            )}
+                          </>
+                        }
                         renderItem={({ item, index }) => (
                           item !== null ?
                             <Category
@@ -133,23 +148,29 @@ class Home extends Component {
               }
               contentTab2={
                 querySearch.value === '' ?
-                  (<FlatList
-                    data={this.state.categories}
-                    onEndReachedThreshold={0.8}
-                    initialNumToRender={5}
-                    showsVerticalScrollIndicator={false}
-                    onEndReached={this.loadMoreData}
-                    renderItem={({ item, index }) => (
-                      <Category
-                        value={querySearch.value}
-                        indexTab={indexTab}
-                        showCategoryName={<Text style={styles.categoryName}>{item.attributes.name}</Text>}
-                        categoryName={item.attributes.slug}
-                        type={'manga'}
-                      />
-                    )
-                    }
-                  />)
+                  (!isLoading ?
+                    <FlatList
+                      keyExtractor={i => i.id}
+                      data={categories}
+                      onEndReached={this.loadMoreData}
+                      onEndReachedThreshold={0.5}
+                      // initialNumToRender={5}
+                      maxToRenderPerBatch={3}
+                      showsVerticalScrollIndicator={false}
+                      renderItem={({ item, index }) => (
+                        <Category
+                          value={querySearch.value}
+                          indexTab={indexTab}
+                          showCategoryName={<Text style={styles.categoryName}>{item.attributes.name}</Text>}
+                          categoryName={item.attributes.slug}
+                          type={'manga'}
+                        />
+                      )
+                      }
+                    />
+                    :
+                    <Loading color={'#8055E3'} />
+                  )
                   :
                   (<SearchResult
                     value={querySearch.value}

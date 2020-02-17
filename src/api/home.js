@@ -42,7 +42,19 @@ export const searcher = async (type, text) => {
         url: `/${type}?filter[text]=${text}`,
     }, false)
 }
-export const searcherByPage = async (type, text) => {
+export const searcherByPage = async (url) => {
+    return await dispatchRequest({
+        method: 'get',
+        url,
+    }, false);
+}
+export const getSeriesEpisodes = async (type, id) => {
+    return await dispatchRequest({
+        method: 'get',
+        url: `/${type}/${id}/episodes?page%5Blimit%5D=10&page%5Boffset%5D=0`,
+    }, false)
+}
+export const getEpisodesByPage = async (url) => {
     return await dispatchRequest({
         method: 'get',
         url,
