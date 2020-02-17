@@ -25,10 +25,10 @@
 - Added skeleton component
 - Added spinner loading
 - Added optimizitaion for Flatlist
-## [FIX] 2020-02-17 7:50PM
+## [FIX] 2020-02-16 7:50PM
 - Fixed component for Detail view
 
-## [ADD] 2020-02-17 7:50PM
+## [ADD] 2020-02-16 7:50PM
 - Added list of episodes
 - Added component for card of Episodes
 
