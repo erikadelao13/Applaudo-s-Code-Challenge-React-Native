@@ -5,6 +5,7 @@ import { searcher, searcherByPage } from '../../../../api/home';
 import styles from './styles';
 import { withNavigationFocus } from 'react-navigation';
 //customs
+import parseError from '../../../../utils/parse_error';
 import Card from '../../../../components/Card'
 import Loading from '../../../../components/LoadingSpinner'
 class SearchResult extends Component {
@@ -22,12 +23,13 @@ class SearchResult extends Component {
     };
 
     searchResults = async () => {
+        let { type } = this.props;
         this.setState({
             isLoading: true
         })
         try {
             if (this.props.value !== '') {
-                let searchByText = await searcher(this.props.indexTab === 0 ? 'anime' : 'manga', this.props.value)
+                let searchByText = await searcher(type, this.props.value)
                 this.setState({
                     searchList: searchByText.data.data,
                     urlNextPage: searchByText.data.links.next,
@@ -40,7 +42,8 @@ class SearchResult extends Component {
             console.log(err)
             this.setState({
                 isLoading: false
-            })
+            });
+            return parseError(err);
         }
     };
 
@@ -66,7 +69,8 @@ class SearchResult extends Component {
             console.log(err)
             this.setState({
                 isLoadingNext: false
-            })
+            });
+            return parseError(err);
         }
     };
 
@@ -106,6 +110,14 @@ class SearchResult extends Component {
                         maxToRenderPerBatch={3}
                         onEndReached={this.loadMoreData}
                         numColumns={2}
+                        ListEmptyComponent={
+                            isLoading ? (
+                                <Loading color={'#8055E3'} />
+                            ) : (
+                                    <Text style={styles.emptyStateText}>No data</Text>
+                                )
+
+                        }
                         ListFooterComponent={
                             <>
                                 {isLoadingNext && (

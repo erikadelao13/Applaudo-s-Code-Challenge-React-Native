@@ -1,12 +1,13 @@
 
 import React, { Component } from 'react';
-import { View, Text, StatusBar, FlatList } from 'react-native';
+import { View, Text, StatusBar, FlatList, TouchableOpacity } from 'react-native';
 import { Content, Container } from 'native-base';
 import { connect } from 'react-redux';
 import styles from './styles';
 import colors from '../../../utils/colors';
 import { getSeriesEpisodes, getEpisodesByPage } from '../../../api/home';
-import YouTube, { YouTubeStandaloneIOS, YouTubeStandaloneAndroid } from 'react-native-youtube';
+import YouTube from 'react-native-youtube';
+import { withNavigationFocus } from 'react-navigation';
 //customs
 import DetailComponent from '../../../components/DetailCard';
 import FooterScrollableTab from '../../../components/FooterScrollableTab';
@@ -15,6 +16,7 @@ import TechnicalDetails from '../../../components/TechnicalDetails';
 import EpisodesCard from '../../../components/EpisodesCard';
 import Loading from '../../../components/LoadingSpinner';
 import CustomModal from '../../../components/Modal';
+import NoImage from '../../../assets/images/NoImageAvailable.png';
 class Detail extends Component {
   state = {
     loading: false,
@@ -85,9 +87,9 @@ class Detail extends Component {
 
   imageExists = image => {
     if (image && Reflect.has(image, 'original')) {
-      return image.original;
+      return { uri: image.original };
     } else {
-      return null;
+      return NoImage;
     }
   };
 
@@ -113,10 +115,20 @@ class Detail extends Component {
       this.showModal(false)
       :
       this.showModal(true, 'Sorry', 'No video available.')
-  }
+  };
+
+  setToFavorites = async item => {
+    const { dispatch, favorites } = this.props;
+    favorites.push(item);
+    dispatch({
+      type: ADD_TO_FAVORITES,
+      payload: [...favorites],
+    });
+    this.setState({ isFavorite: true });
+  };
 
   render() {
-    let { cardInformation, episodes, isLoadingNext, isReady, isPlaying, isLooping, modalState, titleState, subtitleState } = this.state;
+    let { cardInformation, episodes, isLoadingNext, isReady, isPlaying, modalState, titleState, subtitleState } = this.state;
     console.log(cardInformation, 'cardInformationdskfjsldk')
     return (
       <View style={styles.container}>
@@ -132,11 +144,10 @@ class Detail extends Component {
                 apiKey={"AIzaSyBOJCZo6sFEM1u7zExOSXN6_BMAaqS0yXg"}
                 videoId={cardInformation.attributes.youtubeVideoId && cardInformation.attributes.youtubeVideoId}
                 play={isPlaying}
-                // loop={isLooping}
                 controls={1}
                 style={styles.youtubeVideoStyle}
                 onError={e => {
-                  console.log(e, 'youtube error')
+                  console.log(e)
                 }}
                 onReady={e => {
                   this.setState({ isReady: true })
@@ -166,6 +177,13 @@ class Detail extends Component {
                   status={cardInformation.attributes.status}
                 />}
             />
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity onPress={() => this.setToFavorites(cardInformation)}>
+                <View style={styles.favoritesButton}>
+                  <Text style={styles.favoriteButtonText}>Add to favorites</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
             {cardInformation.type === 'anime' && (
               <View>
                 <Text style={styles.title}>Episodes</Text>
@@ -216,5 +234,7 @@ class Detail extends Component {
     );
   }
 }
-
-export default Detail
+const mapStateToProps = state => ({
+  favorites: state.favorites.favorites,
+});
+export default connect(mapStateToProps)(withNavigationFocus(Detail));

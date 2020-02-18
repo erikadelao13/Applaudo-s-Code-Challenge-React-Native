@@ -39,3 +39,9 @@
 ## [ADD] 2020-02-17 1:28PM
 - Added youtube video on app
 - Added Loaders to FlatList
+
+## [ADD] 2020-02-17 6:35PM
+- Added app icon
+- Initialized favorites screen
+- Initialized validation when there is no network connection
+- Added button for favorites on detail screen

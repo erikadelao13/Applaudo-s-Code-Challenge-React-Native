@@ -32,6 +32,7 @@ export default StyleSheet.create({
     thumbnailStyle: {
         width: '100%',
         height: '100%',
+        borderRadius: resize(12),
     },
     thumbnailSmallStyle: {
         borderRadius: resize(12),

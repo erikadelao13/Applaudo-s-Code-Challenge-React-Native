@@ -1,1 +1,0 @@
-export const SET_DATA_CARD = 'SET_DATA_CARD';

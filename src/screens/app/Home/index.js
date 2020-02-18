@@ -1,12 +1,13 @@
 
 import React, { Component } from 'react';
-import { View, Text, StatusBar, FlatList, ActivityIndicator } from 'react-native';
+import { View, Text, StatusBar, FlatList } from 'react-native';
 import { Content, Container } from 'native-base';
-import { getGenres, showGenresByPage, searcher } from '../../../api/home'
+import { getGenres, showGenresByPage } from '../../../api/home'
 import { connect } from 'react-redux';
 //customs
 import styles from './styles';
 import colors from '../../../utils/colors';
+import { parseError } from '../../../utils/parse_error';
 import Category from './Category';
 import TopTabBar from '../../../components/HeaderTabs';
 import Header from '../../../components/Header';
@@ -29,7 +30,7 @@ class Home extends Component {
     this.getCategories();
   };
 
-  getCategories = async (isRefresh = false) => {
+  getCategories = async () => {
     this.setState({
       isLoading: true
     });
@@ -46,6 +47,7 @@ class Home extends Component {
       this.setState({
         isLoading: false
       });
+      return parseError(err);
     }
   };
 
@@ -72,6 +74,7 @@ class Home extends Component {
       this.setState({
         isLoadingNext: false
       });
+      return parseError(err);
     }
   };
 
@@ -106,7 +109,7 @@ class Home extends Component {
                         // onRefresh={() => this.getCategories()}
                         onEndReached={this.loadMoreData}
                         onEndReachedThreshold={0.5}
-                        // initialNumToRender={5}
+                        initialNumToRender={5}
                         maxToRenderPerBatch={3}
                         showsVerticalScrollIndicator={false}
                         ListFooterComponent={
@@ -147,7 +150,7 @@ class Home extends Component {
                       data={categories}
                       onEndReached={this.loadMoreData}
                       onEndReachedThreshold={0.5}
-                      // initialNumToRender={5}
+                      initialNumToRender={5}
                       maxToRenderPerBatch={3}
                       showsVerticalScrollIndicator={false}
                       ListFooterComponent={

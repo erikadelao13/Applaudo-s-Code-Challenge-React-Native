@@ -5,9 +5,12 @@ import { getDataByCategory, showDataByCategoryPage, searcher } from '../../../..
 import { connect } from 'react-redux';
 import { withNavigationFocus } from 'react-navigation';
 //customs
+import parseError from '../../../../utils/parse_error';
 import styles from './styles';
 import Card from '../../../../components/Card';
 import Loading from '../../../../components/LoadingSpinner';
+import NoImage from '../../../../assets/images/NoImageAvailable.png';
+import verifyNetworkConnection from '../../../../utils/networkConnectionState';
 class Category extends Component {
   state = {
     isLoading: false,
@@ -15,6 +18,7 @@ class Category extends Component {
     urlNextPage: null,
     categoryList: [],
     showCategoryName: false,
+    errorConnection: false,
   }
 
   componentDidMount = async () => {
@@ -26,6 +30,7 @@ class Category extends Component {
       isLoading: true
     });
     try {
+      await verifyNetworkConnection();
       const getDatabyCategoryList = await getDataByCategory(this.props.type, this.props.categoryName);
       console.log(getDatabyCategoryList, 'getDatabyCategoryList')
       if (getDatabyCategoryList.data.data.length !== 0) {
@@ -45,8 +50,10 @@ class Category extends Component {
     } catch (err) {
       console.log(err)
       this.setState({
-        isLoading: false
+        isLoading: false,
+        errorConnection: true,
       });
+      return parseError(err);
     }
   };
 
@@ -72,7 +79,8 @@ class Category extends Component {
       console.log(err)
       this.setState({
         isLoadingNext: false
-      })
+      });
+      return parseError(err);
     }
   };
 
@@ -93,9 +101,9 @@ class Category extends Component {
 
   imageExists = image => {
     if (image && Reflect.has(image, 'original')) {
-      return image.original;
+      return { uri: image.original };
     } else {
-      return null;
+      return NoImage;
     }
   };
 

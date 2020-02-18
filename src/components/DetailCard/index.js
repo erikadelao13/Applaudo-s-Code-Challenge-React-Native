@@ -8,7 +8,7 @@ const detailComponent = (props) => {
             {props.onPLayVideo === false ?
                 <TouchableOpacity onPress={props.onPress}>
                     <View style={styles.containerImage}>
-                        <Thumbnail style={styles.thumbnailStyle} square large source={{ uri: props.picture }} />
+                        <Thumbnail style={styles.thumbnailStyle} square large source={props.picture} />
                         {!props.mangaTypeActive &&
                             (<View style={styles.playIconContainer}>
                                 <Icon style={styles.playIcon} type="FontAwesome" name="play" />
@@ -24,7 +24,7 @@ const detailComponent = (props) => {
             <View style={styles.footerStyle}>
                 <View style={styles.footerSectionOne}>
                     <View style={styles.sectionOne}>
-                        <Thumbnail style={styles.thumbnailSmallStyle} square source={{ uri: props.mainPicture }} />
+                        <Thumbnail style={styles.thumbnailSmallStyle} square source={props.mainPicture} />
                     </View>
                     <View style={styles.sectionTwo}>
                         <Text style={styles.mainName}>{props.name}</Text>

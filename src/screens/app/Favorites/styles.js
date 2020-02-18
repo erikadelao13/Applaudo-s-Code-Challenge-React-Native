@@ -16,35 +16,13 @@ export default StyleSheet.create({
     paddingHorizontal: resize(12),
     backgroundColor: colors.backgroundColorApp,
   },
-  title: {
+  categoryName: {
     fontFamily: fonts.montserratSemiBold,
     fontSize: resize(18),
     textTransform: 'uppercase',
     color: colors.titleCategoryColor,
-    paddingTop: resize(15),
-    paddingBottom: resize(20),
+    paddingBottom: resize(30),
+    paddingTop: resize(10),
+    backgroundColor: colors.backgroundColorApp
   },
-  youtubeVideoStyle: {
-    width: '100%',
-    height: '100%'
-  },
-  buttonContainer: {
-    alignItems:'center',
-    paddingBottom: resize(5),
-  },
-  favoritesButton: {
-    width: resize(200),
-    height: resize(50),
-    backgroundColor: colors.backgroundColorApp,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: resize(10),
-    borderWidth: 2,
-    borderColor: colors.lightPurple,
-  },
-  favoriteButtonText: {
-    fontFamily: fonts.montserratSemiBold,
-    fontSize: resize(14),
-    color: colors.lightPurple,
-  }
 });

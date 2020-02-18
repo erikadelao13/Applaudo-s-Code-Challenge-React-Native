@@ -7,7 +7,7 @@ const card = (props) => {
         <TouchableOpacity onPress={props.onPressCard}>
             <View style={styles.container}>
                 <View>
-                    <Thumbnail style={props.cardForSearch === false ? styles.thumbnailStyle : styles.thumbnailMin} square large source={{ uri: props.picture }} />
+                    <Thumbnail style={props.cardForSearch === false ? styles.thumbnailStyle : styles.thumbnailMin} square large source={props.picture} />
                 </View>
                 <View style={styles.footerStyle}>
                     <Text numberOfLines={2} style={styles.nameStyle}>{props.name}</Text>

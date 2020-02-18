@@ -1,4 +1,5 @@
-import { Alert, ToastAndroid, Platform } from 'react-native';
+import { Alert, Platform } from 'react-native';
+import { Toast } from "native-base";
 
 const parseError = (error) => {
   let _error = error;
@@ -19,7 +20,11 @@ const parseError = (error) => {
       _error
     );
   } else {
-    return ToastAndroid.show(_error, ToastAndroid.SHORT);
+    return Toast.show({
+      text: _error,
+      duration: 3500,
+      type: "danger"
+    })
   }
 }
 
