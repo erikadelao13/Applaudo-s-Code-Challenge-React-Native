@@ -9,7 +9,7 @@ function user(state = INITIAL_STATE, action) {
     case SET_TO_FAVORITES:
       return {
         ...state,
-        favorite: action.payload
+        favorites: action.payload
       }
     case DELETE_FROM_FAVORITES:
       return {

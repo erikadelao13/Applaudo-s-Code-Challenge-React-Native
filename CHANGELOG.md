@@ -76,3 +76,6 @@
 
 ## [FIX] 2020-02-18 2:30PM
 - Added padding Top to empty state text.
+
+## [FIX] 2020-02-18 3:02PM
+- Fixed variable name on reducer
