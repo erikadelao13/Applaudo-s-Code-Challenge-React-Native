@@ -1,5 +1,8 @@
 # Applaudo's Code Challenge React Native
 
+## APK download
+- [Kitsu app](https://github.com/erikadelao13/Applaudo-s-Code-Challenge-React-Native/releases/tag/KitsuV1.0)
+
 ## Installation for node_modules
 **Use yarn, no npm**
 ```
