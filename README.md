@@ -16,10 +16,9 @@ react-native run-android
 - Node version: 12.2.0
 - npm version: 6.9.0
 - React native version: 0.61.5
-
 ```
-## Librarys
 
+## Librarys
 - [@react-native-community/netinfo](https://github.com/react-native-community/react-native-netinfo)
 - [jetifier](https://github.com/mikehardy/jetifier#readme)
 - [native-base](https://github.com/GeekyAnts/NativeBase)
@@ -34,3 +33,10 @@ react-native run-android
 - [react-redux](https://github.com/reduxjs/react-redux)
 - [redux](https://github.com/reduxjs/redux)
 - [redux-persist](https://github.com/rt2zz/redux-persist)
+
+## Design notes
+```
+- Created parse error file to show errors from api on a toast (android) or alert (ios)
+- Created tabs component so you can add more tabs and show other series, not only manga series or anime series
+- Created a general card for different type of series
+```
