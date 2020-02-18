@@ -5,28 +5,35 @@ import fonts from '../../utils/fonts';
 export default StyleSheet.create({
     container: {
         flex: 1,
+        paddingHorizontal: resize(12),
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     containerImage: {
-        width: '100%',
-        minWidth: '100%',
-        height: '70%',
+        justifyContent: 'center'
     },
     imgError: {
-        width: '100%',
-        height: '100%',
+        width: resize(100),
+        height: resize(100),
     },
     buttonContainer: {
-        paddingHorizontal: resize(100),
+        width: resize(100),
         height: resize(50),
+        backgroundColor: colors.blue,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: resize(10),
+        borderRadius: resize(12),
     },
     textButtonStyle: {
         fontFamily: fonts.montserratSemiBold,
-        color: colors.lightGray,
+        color: 'white',
         fontSize: resize(14),
     },
-    sectionTwo:{
-        width: '100%',
-        minWidth: '100%',
-        height: '30%',
-    }
+    title: {
+        fontFamily: fonts.montserratSemiBold,
+        fontSize: resize(18),
+        color: colors.titleCategoryColor,
+        paddingTop: resize(5),
+    },
 });

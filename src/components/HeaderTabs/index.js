@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Tab, Tabs, ScrollableTab } from 'native-base';
+import { Container, Tab, Tabs } from 'native-base';
 import styles from './styles';
 import { View, Text } from 'react-native';
 function tabBar(props) {

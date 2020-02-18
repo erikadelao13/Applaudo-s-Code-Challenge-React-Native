@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { Thumbnail, Label } from 'native-base';
+import { Thumbnail } from 'native-base';
 import styles from './styles'
 const card = (props) => {
     return (
@@ -10,7 +10,7 @@ const card = (props) => {
                     <Thumbnail style={props.cardForSearch === false ? styles.thumbnailStyle : styles.thumbnailMin} square large source={props.picture} />
                 </View>
                 <View style={styles.footerStyle}>
-                    <Text numberOfLines={2} style={styles.nameStyle}>{props.name}</Text>
+                    <Text numberOfLines={2} style={props.cardForSearch === false ? styles.nameStyle : styles.nameStyleMin}>{props.name}</Text>
                     <View style={styles.popularityView}>
                         <Text style={styles.popularityScore}>Popularity</Text>
                         <View style={styles.popularityLabel}>

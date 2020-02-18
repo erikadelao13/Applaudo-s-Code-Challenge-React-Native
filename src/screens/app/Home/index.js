@@ -2,32 +2,53 @@
 import React, { Component } from 'react';
 import { View, Text, StatusBar, FlatList } from 'react-native';
 import { Content, Container } from 'native-base';
-import { getGenres, showGenresByPage } from '../../../api/home'
-import { connect } from 'react-redux';
+import NetInfo from '@react-native-community/netinfo';
+import { getGenres, showGenresByPage } from '../../../api/home';
 //customs
 import styles from './styles';
-import colors from '../../../utils/colors';
-import { parseError } from '../../../utils/parse_error';
+import parseError from '../../../utils/parse_error';
 import Category from './Category';
 import TopTabBar from '../../../components/HeaderTabs';
 import Header from '../../../components/Header';
 import SearchResult from './SearchResult';
 import Loading from '../../../components/LoadingSpinner';
+import ErrorScreen from '../../../components/ErrorConnection';
 class Home extends Component {
   state = {
     urlNextPage: null,
     isLoading: false,
     categories: [],
-    indexTab: 0,
     querySearch: {
       value: '',
       type: 'text',
       required: 'false'
     },
     isLoadingNext: false,
+    thereIsConnection: true,
   }
+
   componentDidMount = async () => {
+    this.checkConnection();
     this.getCategories();
+  };
+
+  checkConnection = async () => {
+    try {
+      const verifyConnection = await NetInfo.fetch();
+      if (verifyConnection) {
+        serverConnection = await fetch('https://kitsu.io/api/edge/categories');
+        if (serverConnection) {
+          this.setState({
+            thereIsConnection: true
+          })
+        }
+      }
+    } catch (err) {
+      console.log(err)
+      this.setState({
+        thereIsConnection: false
+      })
+    }
   };
 
   getCategories = async () => {
@@ -35,19 +56,21 @@ class Home extends Component {
       isLoading: true
     });
     try {
+      this.checkConnection()
       const getGenresList = await getGenres();
-      console.log(getGenresList, 'getGenresList')
       this.setState({
         categories: getGenresList.data.data,
         urlNextPage: getGenresList.data.links.next,
         isLoading: false,
+        thereIsConnection: true
       })
     } catch (err) {
       console.log(err)
       this.setState({
-        isLoading: false
+        isLoading: false,
+        thereIsConnection: false
       });
-      return parseError(err);
+      // return parseError(err);
     }
   };
 
@@ -74,7 +97,7 @@ class Home extends Component {
       this.setState({
         isLoadingNext: false
       });
-      return parseError(err);
+      // return parseError(err);
     }
   };
 
@@ -86,105 +109,104 @@ class Home extends Component {
   };
 
   render() {
-    let { isLoading, isLoadingNext, indexTab, querySearch, categories } = this.state;
+    let { isLoading, isLoadingNext, querySearch, categories, thereIsConnection } = this.state;
     return (
-      <View style={styles.container}>
-        <StatusBar translucent backgroundColor='transparent' />
-        <Header
-          headerWithSearch={true}
-          stateInput="querySearch"
-          textValue={querySearch.value}
-          onChangeValue={this.onChangeInputValue}
-        />
-        <Container style={styles.backgroundContainer}>
-          <Content showsVerticalScrollIndicator={false} contentContainerStyle={styles.backgroundContent}>
-            <TopTabBar
-              contentTab1={
-                querySearch.value === '' ?
-                  (
-                    !isLoading ?
-                      <FlatList
-                        keyExtractor={i => i.id}
-                        data={categories}
-                        // onRefresh={() => this.getCategories()}
-                        onEndReached={this.loadMoreData}
-                        onEndReachedThreshold={0.5}
-                        initialNumToRender={5}
-                        maxToRenderPerBatch={3}
-                        showsVerticalScrollIndicator={false}
-                        ListFooterComponent={
-                          <>
-                            {isLoadingNext && (
-                              <Loading color={'#8055E3'} />
+      <React.Fragment>
+        {thereIsConnection ?
+          (<View style={styles.container}>
+            <StatusBar translucent backgroundColor='transparent' />
+            <Header
+              headerWithSearch={true}
+              stateInput="querySearch"
+              textValue={querySearch.value}
+              onChangeValue={this.onChangeInputValue}
+            />
+            <Container style={styles.backgroundContainer}>
+              <Content showsVerticalScrollIndicator={false} contentContainerStyle={styles.backgroundContent}>
+                <TopTabBar
+                  contentTab1={
+                    querySearch.value === '' ?
+                      (
+                        !isLoading ?
+                          <FlatList
+                            keyExtractor={i => i.id}
+                            data={categories}
+                            onEndReached={this.loadMoreData}
+                            onEndReachedThreshold={0.5}
+                            initialNumToRender={5}
+                            maxToRenderPerBatch={3}
+                            showsVerticalScrollIndicator={false}
+                            ListFooterComponent={
+                              <>
+                                {isLoadingNext && (
+                                  <Loading color={'#8055E3'} />
+                                )}
+                              </>
+                            }
+                            renderItem={({ item, index }) => (
+                              item !== null ?
+                                <Category
+                                  value={querySearch.value}
+                                  showCategoryName={<Text style={styles.categoryName}>{item.attributes.name}</Text>}
+                                  categoryName={item.attributes.slug}
+                                  type={'anime'}
+                                />
+                                : null
                             )}
-                          </>
-                        }
-                        renderItem={({ item, index }) => (
-                          item !== null ?
+                          />
+                          :
+                          <Loading color={'#8055E3'} />
+                      ) : (
+                        <SearchResult
+                          value={querySearch.value}
+                          type={'anime'}
+                        />
+                      )}
+                  contentTab2={
+                    querySearch.value === '' ?
+                      (!isLoading ?
+                        <FlatList
+                          keyExtractor={i => i.id}
+                          data={categories}
+                          onEndReached={this.loadMoreData}
+                          onEndReachedThreshold={0.5}
+                          initialNumToRender={5}
+                          maxToRenderPerBatch={3}
+                          showsVerticalScrollIndicator={false}
+                          ListFooterComponent={
+                            <>
+                              {isLoadingNext && (
+                                <Loading color={'#8055E3'} />
+                              )}
+                            </>
+                          }
+                          renderItem={({ item, index }) => (
                             <Category
                               value={querySearch.value}
-                              indexTab={indexTab}
                               showCategoryName={<Text style={styles.categoryName}>{item.attributes.name}</Text>}
                               categoryName={item.attributes.slug}
-                              type={'anime'}
+                              type={'manga'}
                             />
-                            : null
-                        )}
-                      />
-                      :
-                      <Loading color={'#8055E3'} />
-                  )
-                  :
-                  (<SearchResult
-                    value={querySearch.value}
-                    indexTab={indexTab}
-                    type={'anime'}
-                  />)
-
-              }
-              contentTab2={
-                querySearch.value === '' ?
-                  (!isLoading ?
-                    <FlatList
-                      keyExtractor={i => i.id}
-                      data={categories}
-                      onEndReached={this.loadMoreData}
-                      onEndReachedThreshold={0.5}
-                      initialNumToRender={5}
-                      maxToRenderPerBatch={3}
-                      showsVerticalScrollIndicator={false}
-                      ListFooterComponent={
-                        <>
-                          {isLoadingNext && (
-                            <Loading color={'#8055E3'} />
-                          )}
-                        </>
-                      }
-                      renderItem={({ item, index }) => (
-                        <Category
+                          )
+                          }
+                        />
+                        :
+                        <Loading color={'#8055E3'} />
+                      ) : (
+                        <SearchResult
                           value={querySearch.value}
-                          indexTab={indexTab}
-                          showCategoryName={<Text style={styles.categoryName}>{item.attributes.name}</Text>}
-                          categoryName={item.attributes.slug}
                           type={'manga'}
                         />
-                      )
-                      }
-                    />
-                    :
-                    <Loading color={'#8055E3'} />
-                  )
-                  :
-                  (<SearchResult
-                    value={querySearch.value}
-                    indexTab={indexTab}
-                    type={'manga'}
-                  />)
-              }
+                      )}
+                />
+              </Content>
+            </Container>
+          </View>) : (
+            <ErrorScreen
+              onPress={() => this.getCategories()}
             />
-          </Content>
-        </Container>
-      </View>
+          )}
+      </React.Fragment>
     );
   }
 }

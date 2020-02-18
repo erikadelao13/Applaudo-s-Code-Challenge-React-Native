@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Thumbnail, Content, Container } from 'native-base';
+import React from 'react';
+import { View, Text } from 'react-native';
+import { Thumbnail } from 'native-base';
 import styles from './styles';
 const EpisodesCard = (props) => {
     return (

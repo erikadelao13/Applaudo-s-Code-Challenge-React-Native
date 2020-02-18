@@ -48,23 +48,6 @@ const bottomTabNavigator = createBottomTabNavigator(
   },
 );
 
-// const homeStackNavigator = createStackNavigator(
-//   {
-//     Home: {
-//       screen: Home,
-//     },
-//     Detail: {
-//       screen: Detail,
-//     }
-//   },
-//   {
-//     initialRouteName: 'Home',
-//     defaultNavigationOptions: {
-//       headerShown: false
-//     },
-//   }
-// );
-
 const appStackNavigator = createStackNavigator(
   {
     Home: {

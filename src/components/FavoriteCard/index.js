@@ -11,6 +11,7 @@ const FavoriteCard = (props) => {
                 </View>
                 <View style={styles.details}>
                     <Text style={styles.animeName}>{props.animeName}</Text>
+                    <Text style={styles.typeSeries}>{props.typeSeries}</Text>
                 </View>
             </View>
         </TouchableOpacity>

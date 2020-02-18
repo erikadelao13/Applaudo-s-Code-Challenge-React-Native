@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView, TextInput } from 'react-native';
-import { Thumbnail, Label, Icon } from 'native-base';
+import { Icon } from 'native-base';
 import styles from './styles'
 const header = (props) => {
     return (
@@ -17,7 +17,6 @@ const header = (props) => {
                                 editable={props.edit}
                                 style={styles.searchTextInput}
                                 placeholder={props.browseTitle}
-                                // placeholderTextColor={colors.white}
                                 onChangeText={value =>
                                     props.onChangeValue(props.stateInput, value)
                                 }

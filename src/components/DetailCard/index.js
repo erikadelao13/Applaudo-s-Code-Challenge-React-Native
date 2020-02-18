@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
-import { Thumbnail, Content, Container, Icon } from 'native-base';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { Thumbnail, Icon } from 'native-base';
 import styles from './styles';
 const detailComponent = (props) => {
     return (

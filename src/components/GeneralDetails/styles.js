@@ -7,7 +7,6 @@ export default StyleSheet.create({
         backgroundColor: colors.backgroundColorApp,
     },
     synopsisText: {
-        // height:'100%',
         fontFamily: fonts.montserratMedium,
         fontSize: resize(14),
         color: colors.darkGray,

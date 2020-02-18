@@ -2,34 +2,23 @@
 import React, { Component } from 'react';
 import { View, Text, StatusBar, FlatList, RefreshControl } from 'react-native';
 import { Content, Container } from 'native-base';
-import { getGenres, showGenresByPage, searcher } from '../../../api/home'
 import { connect } from 'react-redux';
 //customs
 import styles from './styles';
 import FavoriteCard from '../../../components/FavoriteCard';
 import NoImage from '../../../assets/images/NoImageAvailable.png';
-import colors from '../../../utils/colors';
-import TopTabBar from '../../../components/HeaderTabs';
 import Header from '../../../components/Header';
-import SearchResult from '../Home/SearchResult';
-import Loading from '../../../components/LoadingSpinner';
 class Favorites extends Component {
     state = {
-        urlNextPage: null,
         isLoading: false,
-        querySearch: {
-            value: '',
-            type: 'text',
-            required: 'false'
-        },
-        isLoadingNext: false,
         favorites: [],
         refreshing: false,
     }
 
     componentDidMount = () => {
         this.getFavorites();
-    }
+    };
+
     getFavorites = () => {
         this.setState({
             refreshing: true
@@ -37,16 +26,14 @@ class Favorites extends Component {
         let { favorites } = this.props;
         let removeduplicated = [...new Set(favorites)]
         this.setState({
-            favorites: removeduplicated
-        })
-        this.setState({
+            favorites: removeduplicated,
             refreshing: false
         })
     };
 
     imageExists = image => {
-        if (image && Reflect.has(image, 'original')) {
-            return { uri: image.original };
+        if (image && Reflect.has(image, 'small')) {
+            return { uri: image.small };
         } else {
             return NoImage;
         }
@@ -56,10 +43,10 @@ class Favorites extends Component {
         try {
             let { favorites } = this.state;
             let cardId = favorites[index].id;
-            categoryList.id = cardId;
+            favorites.id = cardId;
             this.setState({ favorites }, () => {
                 this.props.navigation.navigate('Detail', {
-                    cardInformation: this.state.favorites[index],
+                    cardInformation: favorites[index],
                 });
             });
         } catch (err) {
@@ -73,7 +60,6 @@ class Favorites extends Component {
 
     render() {
         let { favorites, refreshing } = this.state;
-        console.log(favorites, 'favoritesList')
         return (
             <View style={styles.container}>
                 <StatusBar translucent backgroundColor='transparent' />
@@ -87,22 +73,25 @@ class Favorites extends Component {
                     <Content
                         showsVerticalScrollIndicator={false}
                         contentContainerStyle={styles.backgroundContent}
-                        refreshControl={<RefreshControl
+                        refreshControl={favorites.length === 0 ? <RefreshControl
                             refreshing={refreshing}
                             onRefresh={() => this.getFavorites()}
-                        />}
+                        /> : null}
                     >
                         <View>
                             <Text style={styles.title}>{favorites.length > 0 ? 'Favorites' : 'No Favorites'}</Text>
                             <FlatList
                                 keyExtractor={i => i.id}
                                 data={favorites}
+                                refreshing={refreshing}
+                                onRefresh={() => this.getFavorites()}
                                 showsVerticalScrollIndicator={false}
                                 renderItem={({ item, index }) => (
                                     <FavoriteCard
                                         picture={this.imageExists(item.attributes.posterImage)}
                                         animeName={item.attributes.canonicalTitle}
                                         onPress={() => this.seeDetail(index)}
+                                        typeSeries={item.type}
                                     />)
                                 }
                             />

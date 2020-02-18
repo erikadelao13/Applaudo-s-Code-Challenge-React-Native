@@ -19,7 +19,6 @@ export default StyleSheet.create({
         height: resize(100),
         backgroundColor: colors.lightGrayFour,
         justifyContent: 'center',
-        //flexGrow: 1
     },
     fullHeaderContainer: {
         width: '100%',
@@ -45,10 +44,8 @@ export default StyleSheet.create({
         width: '20%',
         justifyContent: 'center',
         alignItems: 'center',
-        // backgroundColor: 'yellow',
     },
     searchTextInput: {
-        // backgroundColor: 'blue',
         fontFamily: fonts.montserratSemiBold,
         fontSize: resize(13),
         color: colors.backgroundColorApp,

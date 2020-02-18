@@ -4,7 +4,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 const storage = AsyncStorage;
 //reducers
 import favoritesReducer from './src/reducers/favorites';
-// import userReducer from './src/reducers/user';
 //persist config
 const rootPersistConfig = {
   key: 'root',
@@ -16,16 +15,10 @@ const favoritesPersistConfig = {
   storage,
   blacklist: [],
 }
-// const userPersistConfig = {
-//   key: 'user',
-//   storage,
-//   blacklist: [],
-// }
 
 //combine reducers
 const rootReducer = combineReducers({
   favorites: persistReducer(favoritesPersistConfig, favoritesReducer),
-  // user: persistReducer(userPersistConfig, userReducer),
 });
 
 // create store and persist reducers

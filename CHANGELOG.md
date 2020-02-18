@@ -54,3 +54,12 @@
 
 ## [ADD] 2020-02-17 9:29PM
 - Added header with arrow back (added this header on favorites screen)
+
+## [ADD] 2020-02-17 1:04AM
+- Added validation for network connection
+
+## [FIX] 2020-02-17 1:04AM
+- Fixed label for popularity rank
+- Fixed image for episodes
+- Deleted console.logs and some unusefull comments
+- Added small image from api, instead of original, for better performance

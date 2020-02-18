@@ -21,11 +21,12 @@ export default StyleSheet.create({
     },
     popularityLabel: {
         backgroundColor: colors.lightPurple,
-        width: resize(45),
-        height: resize(23),
+        width: resize(55),
+        height: resize(28),
         borderRadius: resize(17),
         justifyContent: 'center',
         alignItems: 'center',
+        marginLeft: resize(6),
     },
     popularityScore: {
         fontFamily: fonts.montserratMedium,
@@ -35,7 +36,7 @@ export default StyleSheet.create({
     },
     popularityScoreNumber: {
         fontFamily: fonts.montserratMedium,
-        fontSize: resize(13),
+        fontSize: resize(13, 'h'),
         color: 'white',
         textAlign: 'center',
     },
@@ -48,6 +49,12 @@ export default StyleSheet.create({
         width: width / 2.5,
         height: resize(220),
         borderRadius: resize(10),
+    },
+    nameStyleMin: {
+        fontFamily: fonts.montserratMedium,
+        fontSize: resize(15),
+        color: colors.darkTextLight,
+        width: width / 2.5,
     },
     footerStyle: {
         width: resize(175)

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
-import { Container, Content } from 'native-base';
+import { View, Text, FlatList } from 'react-native';
 import { searcher, searcherByPage } from '../../../../api/home';
 import styles from './styles';
 import { withNavigationFocus } from 'react-navigation';
@@ -44,7 +43,7 @@ class SearchResult extends Component {
             this.setState({
                 isLoading: false
             });
-            return parseError(err);
+            // return parseError(err);
         }
     };
 
@@ -71,13 +70,13 @@ class SearchResult extends Component {
             this.setState({
                 isLoadingNext: false
             });
-            return parseError(err);
+            // return parseError(err);
         }
     };
 
     imageExists = image => {
-        if (image && Reflect.has(image, 'original')) {
-            return { uri: image.original };
+        if (image && Reflect.has(image, 'small')) {
+            return { uri: image.small };
         } else {
             return NoImage;
         }
@@ -117,7 +116,6 @@ class SearchResult extends Component {
                             ) : (
                                     <Text style={styles.emptyStateText}>No data</Text>
                                 )
-
                         }
                         ListFooterComponent={
                             <>

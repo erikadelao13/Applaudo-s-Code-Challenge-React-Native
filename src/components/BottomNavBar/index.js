@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Icon, Label } from 'native-base';
+import { View, TouchableOpacity } from 'react-native';
+import { Icon } from 'native-base';
 import styles from './styles'
 class NavBarBottom extends Component {
     async navigateTo(path) {

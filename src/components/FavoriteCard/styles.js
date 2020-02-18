@@ -16,7 +16,6 @@ export default StyleSheet.create({
     details: {
         width: '70%',
         marginLeft: resize(15),
-        paddingTop: resize(40),
     },
     thumbnailStyle: {
         width: resize(100),
@@ -28,4 +27,10 @@ export default StyleSheet.create({
         fontSize: resize(15),
         color: colors.darkTextLight
     },
+    typeSeries: {
+        fontFamily: fonts.montserratMedium,
+        fontSize: resize(13),
+        color: colors.lightGray,
+        paddingTop: resize(5)
+    }
 });

@@ -60,9 +60,3 @@ export const getEpisodesByPage = async (url) => {
         url,
     }, false);
 }
-// export const getQuestion = async (data = {}) =>
-//     dispatchRequest({
-//         method: "post",
-//         url: "api/web/questions",
-//         data
-//     });

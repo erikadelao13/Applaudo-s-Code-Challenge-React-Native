@@ -4,10 +4,7 @@ import colors from '../../utils/colors';
 import fonts from '../../utils/fonts';
 export default StyleSheet.create({
     container: {
-        // flex: 1,
-        // width: '100%',
         flex: 1,
-        // height: '100%',
         minWidth: '100%',
         width: '100%',
         paddingTop: resize(12, 'h'),
@@ -43,8 +40,6 @@ export default StyleSheet.create({
     },
     footerStyle: {
         width: '100%',
-        // height: resize(350, 'h'),
-        // backgroundColor: 'green',
     },
     footerSectionOne: {
         width: '100%',
@@ -66,14 +61,6 @@ export default StyleSheet.create({
         flex: 0.2,
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    containerTab1: {
-        flex: 1,
-        backgroundColor: colors.backgroundColorApp,
-    },
-    containerTab2: {
-        flex: 1,
-        backgroundColor: colors.backgroundColorApp,
     },
     popularityScore: {
         fontFamily: fonts.montserratMedium,
@@ -114,32 +101,6 @@ export default StyleSheet.create({
         textAlign: 'justify',
         paddingTop: resize(20),
         paddingBottom: resize(20),
-    },
-    containerColumns: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingVertical: resize(20),
-    },
-    technicalDetailsTitle: {
-        fontFamily: fonts.montserratMedium,
-        fontSize: resize(16),
-        color: colors.darkTextLight,
-        textAlign: 'justify',
-    },
-    technicalDetailsSubtitle: {
-        fontFamily: fonts.montserratMedium,
-        fontSize: resize(14),
-        color: colors.lightGray,
-        textAlign: 'justify',
-    },
-    containerTitleSubTitle: {
-        paddingBottom: resize(10),
-    },
-    dateRangeFont: {
-        fontFamily: fonts.montserratMedium,
-        fontSize: resize(14),
-        color: colors.darkTextLight,
-        textAlign: 'justify',
     },
     playIconContainer: {
         justifyContent: 'center',

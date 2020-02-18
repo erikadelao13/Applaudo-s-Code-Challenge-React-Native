@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { View, Text, StatusBar, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { Content, Container } from 'native-base';
 import { connect } from 'react-redux';
 import styles from './styles';
@@ -31,9 +31,7 @@ class Detail extends Component {
     subtitleState: '',
     isReady: false,
     status: null,
-    error: null,
     isPlaying: true,
-    isLooping: true,
   }
   _youTubeRef = React.createRef();
 
@@ -66,7 +64,6 @@ class Detail extends Component {
         episodes: getEpisodes.data.data,
         urlNextPage: getEpisodes.data.links.next,
       })
-      console.log(getEpisodes, 'getEpisodes')
     } catch (err) {
       console.log(err);
     }
@@ -104,13 +101,6 @@ class Detail extends Component {
     } else {
       return NoImage;
     }
-  };
-
-  onPlayVideo = (isReady) => {
-    let { cardInformation } = this.state;
-    this.setState({
-      isReady,
-    })
   };
 
   showModal = (modal, title, subtitle) => {
@@ -152,7 +142,6 @@ class Detail extends Component {
 
   render() {
     let { cardInformation, episodes, isLoadingNext, isReady, isPlaying, modalState, titleState, subtitleState, isFavorite } = this.state;
-    console.log(cardInformation, 'cardInformationdskfjsldk')
     return (
       <View style={styles.container}>
         <Container style={styles.backgroundContainer}>
@@ -200,22 +189,21 @@ class Detail extends Component {
                   status={cardInformation.attributes.status}
                 />}
             />
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity onPress={!isFavorite ? () => this.setToFavorites(cardInformation) : () => this.deleteFromFavorites(cardInformation)}>
+                <View style={styles.favoritesButton}>
+                  <Text style={styles.favoriteButtonText}>{!isFavorite ? 'Add to favorites' : 'Delete from Favorites'}</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
             {cardInformation.type === 'anime' && (
               <View>
-                <View style={styles.buttonContainer}>
-                  <TouchableOpacity onPress={!isFavorite ? () => this.setToFavorites(cardInformation) : () => this.deleteFromFavorites(cardInformation)}>
-                    <View style={styles.favoritesButton}>
-                      <Text style={styles.favoriteButtonText}>{!isFavorite ? 'Add to favorites' : 'Delete from Favorites'}</Text>
-                    </View>
-                  </TouchableOpacity>
-                </View>
                 <Text style={styles.title}>Episodes</Text>
                 <FlatList
                   keyExtractor={i => i.id}
                   data={episodes}
                   onEndReached={this.loadMoreData}
                   onEndReachedThreshold={0.5}
-                  // initialNumToRender={5}
                   maxToRenderPerBatch={3}
                   ListFooterComponent={
                     <>
@@ -232,7 +220,6 @@ class Detail extends Component {
                         episodeName={item.attributes.canonicalTitle}
                         season={item.attributes.seasonNumber}
                         episode={item.attributes.number}
-                        // description={item.attributes.synopsis}
                         airingDate={item.attributes.airdate}
                       />;
                     }

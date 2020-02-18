@@ -1,8 +1,7 @@
 
 import React, { Component } from 'react';
-import { View, FlatList, TouchableHighlightBase, Text } from 'react-native';
-import { getDataByCategory, showDataByCategoryPage, searcher } from '../../../../api/home'
-import { connect } from 'react-redux';
+import { View, FlatList } from 'react-native';
+import { getDataByCategory, showDataByCategoryPage } from '../../../../api/home'
 import { withNavigationFocus } from 'react-navigation';
 //customs
 import parseError from '../../../../utils/parse_error';
@@ -29,7 +28,6 @@ class Category extends Component {
     });
     try {
       const getDatabyCategoryList = await getDataByCategory(this.props.type, this.props.categoryName);
-      console.log(getDatabyCategoryList, 'getDatabyCategoryList')
       if (getDatabyCategoryList.data.data.length !== 0) {
         this.setState({
           categoryList: getDatabyCategoryList.data.data,
@@ -49,7 +47,7 @@ class Category extends Component {
       this.setState({
         isLoading: false,
       });
-      return parseError(err);
+      // return parseError(err);
     }
   };
 
@@ -76,7 +74,7 @@ class Category extends Component {
       this.setState({
         isLoadingNext: false
       });
-      return parseError(err);
+      // return parseError(err);
     }
   };
 
@@ -96,8 +94,8 @@ class Category extends Component {
   };
 
   imageExists = image => {
-    if (image && Reflect.has(image, 'original')) {
-      return { uri: image.original };
+    if (image && Reflect.has(image, 'small')) {
+      return { uri: image.small };
     } else {
       return NoImage;
     }
