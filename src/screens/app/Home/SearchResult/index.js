@@ -121,7 +121,7 @@ class SearchResult extends Component {
                             isLoading ? (
                                 <Loading color={'#8055E3'} />
                             ) : (
-                                    <Text style={styles.emptyStateText}>No data</Text>
+                                        <Text style={styles.emptyStateText}>No data</Text>
                                 )
                         }
                         ListFooterComponent={

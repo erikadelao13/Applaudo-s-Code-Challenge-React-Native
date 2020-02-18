@@ -10,10 +10,11 @@ export default StyleSheet.create({
         // alignItems: 'center',
         backgroundColor: colors.backgroundColorApp,
     },
-    emptyStateText:{
+    emptyStateText: {
         color: colors.darkTextLight,
         fontFamily: fonts.montserratSemiBold,
         fontSize: resize(15),
         textAlign: 'center',
+        paddingTop: resize(200,'h'),
     }
 });

@@ -73,3 +73,6 @@
 
 ## [ADD] 2020-02-18 12:49PM
 - Added on pull refresh on search FlatList
+
+## [FIX] 2020-02-18 2:30PM
+- Added padding Top to empty state text.
