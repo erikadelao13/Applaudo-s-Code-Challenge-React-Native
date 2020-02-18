@@ -4,14 +4,16 @@ import { Thumbnail, Content, Container } from 'native-base';
 import styles from './styles';
 const FavoriteCard = (props) => {
     return (
-        <View style={styles.container}>
-            <View styles={styles.imageContainer}>
-                <Thumbnail style={styles.thumbnailStyle} square large source={props.picture} />
+        <TouchableOpacity onPress={props.onPress}>
+            <View style={styles.container}>
+                <View styles={styles.imageContainer}>
+                    <Thumbnail style={styles.thumbnailStyle} square large source={props.picture} />
+                </View>
+                <View style={styles.details}>
+                    <Text style={styles.animeName}>{props.animeName}</Text>
+                </View>
             </View>
-            <View style={styles.details}>
-                <Text style={styles.animeName}>{props.animeName}</Text>
-            </View>
-        </View>
+        </TouchableOpacity>
     );
 }
 export default FavoriteCard

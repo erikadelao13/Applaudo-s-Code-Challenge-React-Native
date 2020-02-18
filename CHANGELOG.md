@@ -51,3 +51,6 @@
 - Added card for favorites screen
 - Removed favorites duplicated (if there are)
 - Added validation button on detail screen for favorites
+
+## [ADD] 2020-02-17 9:29PM
+- Added header with arrow back (added this header on favorites screen)

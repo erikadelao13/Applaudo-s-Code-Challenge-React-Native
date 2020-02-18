@@ -11,7 +11,7 @@ const header = (props) => {
                         {/* <Image source={SearchIcon} style={styles.imgSearch} /> */}
                         <View style={styles.searchContainer}>
                             <View style={styles.searchContainerIcon}>
-                                <Icon style={styles.serachIcon} type="FontAwesome"  name="search" />
+                                <Icon style={styles.serachIcon} type="FontAwesome" name="search" />
                             </View>
                             <TextInput
                                 editable={props.edit}
@@ -24,6 +24,21 @@ const header = (props) => {
                                 value={props.textValue}
                                 keyboardType={props.keyboard}
                             />
+                        </View>
+                    </View>
+                </SafeAreaView>
+            )}
+            {props.normalHeader && (
+                <SafeAreaView style={styles.containerNormalHeader}>
+                    <View style={styles.fullHeaderContainer}>
+                        <TouchableOpacity onPress={props.onPress}>
+                            <View style={styles.iconContainer}>
+                                <Icon style={styles.arrowIcon} type={'FontAwesome5'} name={'arrow-left'} />
+                            </View>
+                        </TouchableOpacity>
+                        <View style={styles.textContainer}>
+                            {/* <Image source={SearchIcon} style={styles.imgSearch} /> */}
+                            < Text style={styles.title}>{props.title}</Text>
                         </View>
                     </View>
                 </SafeAreaView>

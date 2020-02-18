@@ -43,12 +43,6 @@ class Favorites extends Component {
             refreshing: false
         })
     };
-    onChangeInputValue = async (key, value) => {
-        let { state } = this;
-        state[key].value = value;
-        state[key].value = state[key].value.replace(/\s{2,}/g, ' ').trimLeft();
-        this.setState({ ...state });
-    };
 
     imageExists = image => {
         if (image && Reflect.has(image, 'original')) {
@@ -58,6 +52,25 @@ class Favorites extends Component {
         }
     };
 
+    seeDetail = async index => {
+        try {
+            let { favorites } = this.state;
+            let cardId = favorites[index].id;
+            categoryList.id = cardId;
+            this.setState({ favorites }, () => {
+                this.props.navigation.navigate('Detail', {
+                    cardInformation: this.state.favorites[index],
+                });
+            });
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    goBack = () => {
+        this.props.navigation.goBack();
+    };
+
     render() {
         let { favorites, refreshing } = this.state;
         console.log(favorites, 'favoritesList')
@@ -65,10 +78,10 @@ class Favorites extends Component {
             <View style={styles.container}>
                 <StatusBar translucent backgroundColor='transparent' />
                 <Header
-                    headerWithSearch={true}
-                    // stateInput="querySearch"
-                    // textValue={querySearch.value}
+                    normalHeader={true}
+                    title={'Favorites'}
                     onChangeValue={this.onChangeInputValue}
+                    onPress={() => this.goBack()}
                 />
                 <Container style={styles.backgroundContainer}>
                     <Content
@@ -80,7 +93,7 @@ class Favorites extends Component {
                         />}
                     >
                         <View>
-                        <Text style={styles.title}>{favorites.length > 0 ? 'Favorites' : 'No Favorites'}</Text>
+                            <Text style={styles.title}>{favorites.length > 0 ? 'Favorites' : 'No Favorites'}</Text>
                             <FlatList
                                 keyExtractor={i => i.id}
                                 data={favorites}
@@ -89,6 +102,7 @@ class Favorites extends Component {
                                     <FavoriteCard
                                         picture={this.imageExists(item.attributes.posterImage)}
                                         animeName={item.attributes.canonicalTitle}
+                                        onPress={() => this.seeDetail(index)}
                                     />)
                                 }
                             />

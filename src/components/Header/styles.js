@@ -5,22 +5,32 @@ import {
 } from '../../utils/styles';
 import fonts from '../../utils/fonts';
 import colors from '../../utils/colors';
-import { color } from 'react-native-reanimated';
 
 export default StyleSheet.create({
     container: {
         width: '100%',
         minWidth: '100%',
         height: resize(100),
-        // backgroundColor: 'red',
+        justifyContent: 'center',
+    },
+    containerNormalHeader: {
+        width: '100%',
+        minWidth: '100%',
+        height: resize(100),
+        backgroundColor: colors.lightGrayFour,
         justifyContent: 'center',
         //flexGrow: 1
     },
     fullHeaderContainer: {
         width: '100%',
         minWidth: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-around'
+    },
+    textContainer: {
+        width: '100%',
+        minWidth: '100%',
         justifyContent: 'center',
-        // backgroundColor: 'yellow',
         flexDirection: 'row',
     },
     searchContainer: {
@@ -34,7 +44,7 @@ export default StyleSheet.create({
     searchContainerIcon: {
         width: '20%',
         justifyContent: 'center',
-        alignItems:'center',
+        alignItems: 'center',
         // backgroundColor: 'yellow',
     },
     searchTextInput: {
@@ -44,7 +54,20 @@ export default StyleSheet.create({
         color: colors.backgroundColorApp,
         width: '80%'
     },
-    serachIcon:{
+    serachIcon: {
         color: colors.backgroundColorApp,
+    },
+    title: {
+        fontFamily: fonts.montserratSemiBold,
+        fontSize: resize(14),
+        textAlign: 'center',
+        paddingRight: resize(20),
+    },
+    iconContainer: {
+        justifyContent: 'center',
+    },
+    arrowIcon: {
+        fontSize: resize(23),
+        paddingLeft: resize(30),
     }
 });

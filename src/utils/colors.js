@@ -7,6 +7,7 @@ const colors = {
   lightestPurple: '#A37CFC',
   darkGray: '#9E9AA6',
   lightGrayTwo: '#d3d3d3',
+  lightGrayFour: '#f2f2f2',
   lightGrayThree: '#E0E0E0',
   // modalgreyText: '#a09590',
   // modalgreybutton: '#c3c3c3',
