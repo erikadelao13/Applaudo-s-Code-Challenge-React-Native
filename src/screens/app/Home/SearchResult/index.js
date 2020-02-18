@@ -6,8 +6,9 @@ import styles from './styles';
 import { withNavigationFocus } from 'react-navigation';
 //customs
 import parseError from '../../../../utils/parse_error';
-import Card from '../../../../components/Card'
-import Loading from '../../../../components/LoadingSpinner'
+import Card from '../../../../components/Card';
+import Loading from '../../../../components/LoadingSpinner';
+import NoImage from '../../../../assets/images/NoImageAvailable.png';
 class SearchResult extends Component {
     state = {
         isLoading: false,
@@ -76,9 +77,9 @@ class SearchResult extends Component {
 
     imageExists = image => {
         if (image && Reflect.has(image, 'original')) {
-            return image.original;
+            return { uri: image.original };
         } else {
-            return null;
+            return NoImage;
         }
     };
 

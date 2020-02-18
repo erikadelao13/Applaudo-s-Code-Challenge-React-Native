@@ -8,6 +8,8 @@ import colors from '../../../utils/colors';
 import { getSeriesEpisodes, getEpisodesByPage } from '../../../api/home';
 import YouTube from 'react-native-youtube';
 import { withNavigationFocus } from 'react-navigation';
+//redux
+import { SET_TO_FAVORITES, DELETE_FROM_FAVORITES } from '../../../actions/favorites';
 //customs
 import DetailComponent from '../../../components/DetailCard';
 import FooterScrollableTab from '../../../components/FooterScrollableTab';
@@ -34,15 +36,26 @@ class Detail extends Component {
     isLooping: true,
   }
   _youTubeRef = React.createRef();
+
   componentDidMount = async () => {
     let { cardInformation } = this.state;
     try {
       if (cardInformation.type === 'anime') {
+        this.verifyFavorite(cardInformation);
         this.getEpisodesOfSeries();
       }
     } catch (err) {
       console.log(err)
     }
+  };
+
+  verifyFavorite = (cardInfo) => {
+    let { favorites } = this.props;
+    let isFavorite = false;
+    isFavorite = favorites.length && favorites.some(fav => fav.id == cardInfo.id);
+    this.setState({
+      isFavorite
+    })
   }
 
   getEpisodesOfSeries = async () => {
@@ -117,18 +130,28 @@ class Detail extends Component {
       this.showModal(true, 'Sorry', 'No video available.')
   };
 
-  setToFavorites = async item => {
+  setToFavorites = async anime => {
     const { dispatch, favorites } = this.props;
-    favorites.push(item);
+    favorites.push(anime);
     dispatch({
-      type: ADD_TO_FAVORITES,
+      type: SET_TO_FAVORITES,
       payload: [...favorites],
     });
     this.setState({ isFavorite: true });
   };
 
+  deleteFromFavorites = async item => {
+    const { dispatch, favorites } = this.props;
+    const removeFromFavorites = favorites.filter(fav => fav.id != item.id);
+    dispatch({
+      type: DELETE_FROM_FAVORITES,
+      payload: removeFromFavorites,
+    });
+    this.setState({ isFavorite: false });
+  };
+
   render() {
-    let { cardInformation, episodes, isLoadingNext, isReady, isPlaying, modalState, titleState, subtitleState } = this.state;
+    let { cardInformation, episodes, isLoadingNext, isReady, isPlaying, modalState, titleState, subtitleState, isFavorite } = this.state;
     console.log(cardInformation, 'cardInformationdskfjsldk')
     return (
       <View style={styles.container}>
@@ -177,15 +200,15 @@ class Detail extends Component {
                   status={cardInformation.attributes.status}
                 />}
             />
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity onPress={() => this.setToFavorites(cardInformation)}>
-                <View style={styles.favoritesButton}>
-                  <Text style={styles.favoriteButtonText}>Add to favorites</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
             {cardInformation.type === 'anime' && (
               <View>
+                <View style={styles.buttonContainer}>
+                  <TouchableOpacity onPress={!isFavorite ? () => this.setToFavorites(cardInformation) : () => this.deleteFromFavorites(cardInformation)}>
+                    <View style={styles.favoritesButton}>
+                      <Text style={styles.favoriteButtonText}>{!isFavorite ? 'Add to favorites' : 'Delete from Favorites'}</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
                 <Text style={styles.title}>Episodes</Text>
                 <FlatList
                   keyExtractor={i => i.id}

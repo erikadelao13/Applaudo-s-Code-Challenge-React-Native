@@ -45,3 +45,9 @@
 - Initialized favorites screen
 - Initialized validation when there is no network connection
 - Added button for favorites on detail screen
+
+## [ADD] 2020-02-17 8:51PM
+- Added on pull refresh on favorites screen
+- Added card for favorites screen
+- Removed favorites duplicated (if there are)
+- Added validation button on detail screen for favorites

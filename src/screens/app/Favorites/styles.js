@@ -16,13 +16,13 @@ export default StyleSheet.create({
     paddingHorizontal: resize(12),
     backgroundColor: colors.backgroundColorApp,
   },
-  categoryName: {
+  title: {
     fontFamily: fonts.montserratSemiBold,
     fontSize: resize(18),
     textTransform: 'uppercase',
     color: colors.titleCategoryColor,
     paddingBottom: resize(30),
-    paddingTop: resize(10),
+    paddingTop: resize(40),
     backgroundColor: colors.backgroundColorApp
   },
 });

@@ -10,7 +10,6 @@ import styles from './styles';
 import Card from '../../../../components/Card';
 import Loading from '../../../../components/LoadingSpinner';
 import NoImage from '../../../../assets/images/NoImageAvailable.png';
-import verifyNetworkConnection from '../../../../utils/networkConnectionState';
 class Category extends Component {
   state = {
     isLoading: false,
@@ -18,7 +17,6 @@ class Category extends Component {
     urlNextPage: null,
     categoryList: [],
     showCategoryName: false,
-    errorConnection: false,
   }
 
   componentDidMount = async () => {
@@ -30,7 +28,6 @@ class Category extends Component {
       isLoading: true
     });
     try {
-      await verifyNetworkConnection();
       const getDatabyCategoryList = await getDataByCategory(this.props.type, this.props.categoryName);
       console.log(getDatabyCategoryList, 'getDatabyCategoryList')
       if (getDatabyCategoryList.data.data.length !== 0) {
@@ -51,7 +48,6 @@ class Category extends Component {
       console.log(err)
       this.setState({
         isLoading: false,
-        errorConnection: true,
       });
       return parseError(err);
     }
