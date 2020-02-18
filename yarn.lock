@@ -5746,14 +5746,6 @@ react-native-screens@^2.0.0-beta.2:
   dependencies:
     debounce "^1.2.0"
 
-react-native-skeleton-content-nonexpo@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/react-native-skeleton-content-nonexpo/-/react-native-skeleton-content-nonexpo-1.0.4.tgz#83c7e5995a9d0be49b076e6bff4233d199ab4a8e"
-  integrity sha512-XLrltBFHmpJJUjUMjk8F468eoBp+msO8mrqQCdiWptRicuzIYowjE2DmSToB/N3m607+P0xB+ANU5ped1Lsxdw==
-  dependencies:
-    lodash "^4.17.14"
-    react-native-linear-gradient "^2.5.6"
-
 react-native-tab-view@^2.11.0:
   version "2.13.0"
   resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-2.13.0.tgz#23037aa43b0f8f682ddc20415a4baaaf6f82ae8f"

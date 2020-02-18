@@ -67,3 +67,6 @@
 ## [FIX] 2020-02-18 11:21AM
 - Fixed status bar color
 - Fixed margin bottom on favorites
+
+## [FIX] 2020-02-18 12:04PM
+- Removed skeleton component
