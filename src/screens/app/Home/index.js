@@ -114,7 +114,7 @@ class Home extends Component {
       <React.Fragment>
         {thereIsConnection ?
           (<View style={styles.container}>
-            <StatusBar translucent backgroundColor='transparent' />
+            <StatusBar translucent barStyle={'dark-content'} backgroundColor='transparent' />
             <Header
               headerWithSearch={true}
               stateInput="querySearch"

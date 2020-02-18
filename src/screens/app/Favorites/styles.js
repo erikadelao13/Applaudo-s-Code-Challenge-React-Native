@@ -25,4 +25,7 @@ export default StyleSheet.create({
     paddingTop: resize(40),
     backgroundColor: colors.backgroundColorApp
   },
+  flatListView: {
+    marginBottom: resize(58, 'h'),
+  }
 });

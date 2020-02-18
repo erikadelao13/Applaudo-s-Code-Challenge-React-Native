@@ -63,3 +63,7 @@
 - Fixed image for episodes
 - Deleted console.logs and some unusefull comments
 - Added small image from api, instead of original, for better performance
+
+## [FIX] 2020-02-18 11:21AM
+- Fixed status bar color
+- Fixed margin bottom on favorites

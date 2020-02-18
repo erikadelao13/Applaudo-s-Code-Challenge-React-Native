@@ -8,6 +8,7 @@ import styles from './styles';
 import FavoriteCard from '../../../components/FavoriteCard';
 import NoImage from '../../../assets/images/NoImageAvailable.png';
 import Header from '../../../components/Header';
+let favoritesArray
 class Favorites extends Component {
     state = {
         isLoading: false,
@@ -62,7 +63,7 @@ class Favorites extends Component {
         let { favorites, refreshing } = this.state;
         return (
             <View style={styles.container}>
-                <StatusBar translucent backgroundColor='transparent' />
+                <StatusBar barStyle={'dark-content'} backgroundColor='transparent' />
                 <Header
                     normalHeader={true}
                     title={'Favorites'}
@@ -78,7 +79,7 @@ class Favorites extends Component {
                             onRefresh={() => this.getFavorites()}
                         /> : null}
                     >
-                        <View>
+                        <View style={styles.flatListView}>
                             <Text style={styles.title}>{favorites.length > 0 ? 'Favorites' : 'No Favorites'}</Text>
                             <FlatList
                                 keyExtractor={i => i.id}

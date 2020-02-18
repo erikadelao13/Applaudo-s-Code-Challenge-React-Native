@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StatusBar } from 'react-native';
 import { Content, Container } from 'native-base';
 import { connect } from 'react-redux';
 import styles from './styles';
@@ -144,6 +144,7 @@ class Detail extends Component {
     let { cardInformation, episodes, isLoadingNext, isReady, isPlaying, modalState, titleState, subtitleState, isFavorite } = this.state;
     return (
       <View style={styles.container}>
+        <StatusBar translucent barStyle={'light-content'} backgroundColor={colors.lightPurple} />
         <Container style={styles.backgroundContainer}>
           <Content showsVerticalScrollIndicator={false}>
             <DetailComponent

@@ -7,7 +7,7 @@ export default StyleSheet.create({
         flex: 1,
         minWidth: '100%',
         width: '100%',
-        paddingTop: resize(12, 'h'),
+        paddingTop: resize(40, 'h'),
         backgroundColor: colors.backgroundColorApp,
     },
     containerImage: {
