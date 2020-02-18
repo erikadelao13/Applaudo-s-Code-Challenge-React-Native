@@ -21,10 +21,11 @@ class Home extends Component {
     querySearch: {
       value: '',
       type: 'text',
-      required: 'false'
+      required: false
     },
     isLoadingNext: false,
     thereIsConnection: true,
+    refreshing: false,
   }
 
   componentDidMount = async () => {
@@ -56,13 +57,17 @@ class Home extends Component {
       isLoading: true
     });
     try {
+      this.setState({
+        refreshing: true,
+      })
       this.checkConnection()
       const getGenresList = await getGenres();
       this.setState({
         categories: getGenresList.data.data,
         urlNextPage: getGenresList.data.links.next,
         isLoading: false,
-        thereIsConnection: true
+        thereIsConnection: true,
+        refreshing: false,
       })
     } catch (err) {
       console.log(err)
@@ -109,7 +114,7 @@ class Home extends Component {
   };
 
   render() {
-    let { isLoading, isLoadingNext, querySearch, categories, thereIsConnection } = this.state;
+    let { isLoading, isLoadingNext, querySearch, categories, thereIsConnection, refreshing } = this.state;
     return (
       <React.Fragment>
         {thereIsConnection ?
@@ -136,6 +141,8 @@ class Home extends Component {
                             initialNumToRender={5}
                             maxToRenderPerBatch={3}
                             showsVerticalScrollIndicator={false}
+                            refreshing={refreshing}
+                            onRefresh={() => this.getCategories()}
                             ListFooterComponent={
                               <>
                                 {isLoadingNext && (

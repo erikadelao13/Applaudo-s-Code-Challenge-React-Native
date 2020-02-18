@@ -70,3 +70,6 @@
 
 ## [FIX] 2020-02-18 12:04PM
 - Removed skeleton component
+
+## [ADD] 2020-02-18 12:49PM
+- Added on pull refresh on search FlatList

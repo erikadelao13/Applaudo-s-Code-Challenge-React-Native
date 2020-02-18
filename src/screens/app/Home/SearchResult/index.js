@@ -14,6 +14,7 @@ class SearchResult extends Component {
         urlNextPage: null,
         searchList: [],
         isLoadingNext: false,
+        refreshing: false,
     }
 
     componentDidUpdate = async (prevProps) => {
@@ -28,6 +29,9 @@ class SearchResult extends Component {
             isLoading: true
         })
         try {
+            this.setState({
+                refreshing: true,
+            })
             if (this.props.value !== '') {
                 let searchByText = await searcher(type, this.props.value)
                 this.setState({
@@ -36,6 +40,7 @@ class SearchResult extends Component {
                 })
             }
             this.setState({
+                refreshing: false,
                 isLoading: false
             })
         } catch (err) {
@@ -98,7 +103,7 @@ class SearchResult extends Component {
     };
 
     render() {
-        let { searchList, isLoadingNext, isLoading } = this.state;
+        let { searchList, isLoadingNext, isLoading, refreshing } = this.state;
         let { type } = this.props;
         return (
             !isLoading ?
@@ -110,6 +115,8 @@ class SearchResult extends Component {
                         maxToRenderPerBatch={3}
                         onEndReached={this.loadMoreData}
                         numColumns={2}
+                        refreshing={refreshing}
+                        onRefresh={() => this.searchResults()}
                         ListEmptyComponent={
                             isLoading ? (
                                 <Loading color={'#8055E3'} />
