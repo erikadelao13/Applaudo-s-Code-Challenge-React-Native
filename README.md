@@ -1,7 +1,7 @@
 # Applaudo's Code Challenge React Native
 
 ## Installation for node_modules
-**Use yarn NO npm**
+**Use yarn, no npm**
 ```
 yarn install
 ```
